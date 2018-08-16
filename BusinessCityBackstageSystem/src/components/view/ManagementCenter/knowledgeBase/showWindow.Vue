@@ -25,7 +25,7 @@
                         <el-input v-model="ruleForm.name" class='wNight'></el-input>
                     </el-form-item>
                     <el-form-item label="描述:">
-                        <el-input type="textarea" style='width:95%;' v-model="ruleForm.desc" class='wNight'></el-input>
+                        <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 6}" style='width:95%;' v-model="ruleForm.desc" class='wNight'></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -35,7 +35,7 @@
                     <i v-else class='icon iconfont icon-icon--' @click="delInof(index,item.id)"></i>
                     <div class='know'>
                         <el-form-item :label="'答'+(index+1)">
-                            <el-input type="textarea" style='width:95%;' v-model="item.answer" class='wNight'></el-input>
+                            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 6}" style='width:95%;' v-model="item.answer" class='wNight'></el-input>
                         </el-form-item>
                         <el-form-item label="场景:">
                             <el-input v-model="item.scenes" class='wNight'></el-input>

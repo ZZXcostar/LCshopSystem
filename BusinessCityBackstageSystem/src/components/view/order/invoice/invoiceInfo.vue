@@ -241,6 +241,7 @@
                 }).then((res) => {
                     console.log(res)
                     this.invosiceBox =  false
+                    this.getStata();
                 }).catch((err) => {
                     console.log(err)
                 })

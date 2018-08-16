@@ -163,6 +163,7 @@ export default {
                     clearInterval(timer2)
                 }
             }, 5);
+            this.$root.$emit("invoiceUpdata",true)
         },
         isShow(text,indexss) {
             

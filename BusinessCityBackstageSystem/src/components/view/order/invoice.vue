@@ -114,6 +114,11 @@ export default {
             this.data.createTimeMax =datas.invoice.daterange?Date.parse(datas.invoice.daterange[1]):null;
             this.getDatalist(1);
         });
+        this.$root.$on('invoiceUpdata',data =>{
+            if(data){
+                 this.getDatalist(1);
+            }
+        })
     },
     methods:{
         // search(){},
@@ -176,6 +181,9 @@ export default {
         handleEdit(){
         },
         
+    },
+    beforeDestroy() {
+        this.$root.$off('invoiceUpdata');
     }
 }
 </script>

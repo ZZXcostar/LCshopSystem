@@ -233,6 +233,7 @@
                     }
                 }).then((res) => {
                     console.log(res)
+                    this.getStata()
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -253,6 +254,7 @@
                 }).then((res) => {
                     console.log(res)
                     this.$message('上传成功');
+                    this.getStata()
                 }).catch((err) => {
                     console.log(err)
                 })

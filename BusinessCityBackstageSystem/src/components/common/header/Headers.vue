@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <el-row class="textCenter textW navBox">
-      <el-col :span="18">
+      <el-col :span="14">
          <ul class='navTab'>
           <li v-for="info in navInfo" 
            @click="selected(info.infoText)" 
@@ -11,10 +11,10 @@
           </li>
          </ul>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="10">
       <ul class="leftName">
        
-        <li>
+        <li style="width:15%;">
           <el-dropdown :hide-on-click="false">
             <span class="el-dropdown-link">
                <i class="icon iconfont icon-lingdang"></i>
@@ -25,7 +25,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </li>
-        <li>
+        <li style="width:1%;">
           <el-dropdown :hide-on-click="false">
             <span class="el-dropdown-link">
               <i class="icon iconfont icon-shezhi1"></i>

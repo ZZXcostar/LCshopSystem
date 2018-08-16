@@ -180,6 +180,11 @@ export default new Router({
                     name: 'constituent',
                    component: resolve => require(['@/components/view/Worklist/constituent/constituent.vue'], resolve)
                 },
+                // {
+                //     path: 'reportList', //报告列表
+                //     name: 'reportList',
+                //     component: resolve => require(['@/components/view/Worklist/reportList/'],resolve)
+                // },
                 {
                     path: 'assignedAppointment', //指派工单
                     name: 'assignedAppointment',
