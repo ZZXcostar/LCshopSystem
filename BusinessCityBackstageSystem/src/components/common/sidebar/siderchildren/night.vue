@@ -14,7 +14,7 @@
               <el-menu-item index="stage">阶段列表</el-menu-item>
               <el-menu-item index="inspect">检查项列表</el-menu-item>
               <el-menu-item index="constituent">词条列表</el-menu-item>
-              <el-menu-item index="reportList">报告列表</el-menu-item>
+              <el-menu-item index="reportList">报告模板列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
