@@ -100,7 +100,7 @@ export default {
                     type: 'success',
                     message: '删除成功!',
                     duration:800,
-                    onClose:that.$http.post('/api/customer/estate/removeData',
+                    onClose:that.$http.post('/api/public/entrytemplate/removeByIds',
                         [row.id]
                     ).then(res => {
                         console.log(res.data.msg);

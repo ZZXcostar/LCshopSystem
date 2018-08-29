@@ -131,7 +131,7 @@ export default {
                 {index:'8',icon:'el-icon-setting',text:'渠道模块',url:'/api/product/commodity/category/queryMap'},
                 {index:'9',icon:'el-icon-document',text:'知识库',url:'/api/product/commodity/category/queryMap'},
                 {index:'10',icon:'el-icon-setting',text:'词条列表',url:'/api/product/commodity/category/queryMap'},
-                // {index:'11',icon:'el-icon-document',text:'报告模板',url:'/api/product/commodity/category/queryMap'}
+                {index:'11',icon:'el-icon-document',text:'报告模板',url:'/api/product/commodity/category/queryMap'}
             ],
             name:'brandName',
             id:'brandId',

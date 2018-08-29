@@ -208,16 +208,7 @@ export default {
             let that = this;
             let datas = null;
             let url = '';
-            if(this.isAdd){
-                url = '/api/public/entrytemplate/insertOne';
-              datas = {
-                    'name':this.addReportData.name,
-                    'stageId':this.addReportData.stageId,
-                    'typeId':this.addReportData.typeId,
-                    'serviceTypeId':this.addReportData.ServiceTypeId,
-                    'entryTemplateStandards':this.submitData
-                 }
-            }else{
+            if(this.addReportData.id){
                  url = '/api/public/entrytemplate/update';
                  datas = {
                     'name':this.addReportData.name,
@@ -226,6 +217,16 @@ export default {
                     'serviceTypeId':this.addReportData.ServiceTypeId,
                     'entryTemplateStandards':this.submitData,
                     'id':this.addReportData.id
+                 }
+            }else{
+                
+                url = '/api/public/entrytemplate/insertOne';
+              datas = {
+                    'name':this.addReportData.name,
+                    'stageId':this.addReportData.stageId,
+                    'typeId':this.addReportData.typeId,
+                    'serviceTypeId':this.addReportData.ServiceTypeId,
+                    'entryTemplateStandards':this.submitData
                  }
             }
             

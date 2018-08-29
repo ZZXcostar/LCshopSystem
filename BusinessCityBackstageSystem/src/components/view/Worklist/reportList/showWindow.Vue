@@ -189,6 +189,22 @@
                     })
                     return
                 }
+                if(this.houseForm.roomType == null || this.houseForm.roomType == ''){
+                    this.$message({
+                        message: '请选择房屋类型',
+                        type: 'warning',
+                        duration: 1000
+                    })
+                    return
+                }
+                if(this.houseForm.serType == null || this.houseForm.serType == ''){
+                    this.$message({
+                        message: '请选择服务类型',
+                        type: 'warning',
+                        duration: 1000
+                    })
+                    return
+                }
                 this.stageInfo.forEach((e, i) => {
                     if(e.id == this.houseForm.stage){
                         stageName = e.stagename

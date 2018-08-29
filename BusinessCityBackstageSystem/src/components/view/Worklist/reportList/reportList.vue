@@ -13,7 +13,7 @@
                         <el-button type="primary" class="add" @click='showWindowX("no")'><i class='icon iconfont icon-xinzenghuizong'></i>&nbsp;&nbsp;新增</el-button>
                         
                         <el-button type="primary" class='shuaxin' @click='Refresh' round><i class='icon iconfont icon-shuaxin'></i></el-button>
-                        <el-dropdown trigger="click" class='msnuiMore'>
+                        <el-dropdown trigger="click" class='msnuiMore' v-show="false">
                             <span class="el-dropdown-link">
                                 <i class='icon iconfont icon-msnui-more'></i>
                             </span>

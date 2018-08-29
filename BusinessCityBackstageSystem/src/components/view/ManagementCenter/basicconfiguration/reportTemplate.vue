@@ -16,26 +16,19 @@ export default {
                 {'index':1,'icon':'el-icon-menu','isActive':true,'name':'监理-公寓'},
                 {'index':2,'icon':'el-icon-menu','isActive':false,'name':'监理-复式'},
                 {'index':3,'icon':'el-icon-menu','isActive':false,'name':'监理-别墅'},
-                {'index':4,'icon':'el-icon-sold-out','isActive':false,'name':'陪签服务-公寓'},
-                {'index':5,'icon':'el-icon-sold-out','isActive':false,'name':'陪签服务-复式'},
-                {'index':6,'icon':'el-icon-sold-out','isActive':false,'name':'陪签服务-别墅'}
+                {'index':4,'icon':'el-icon-sold-out','isActive':false,'name':'陪签服务'}
             ],
             urlList:[
-                {id:'id',url:'/api/public/articles/query',des:'监理-公寓',name:'stage'},
-                {id:'id',url:'/api/public/articles/query',des:'监理-复式',name:'stage'},
-                {id:'id',url:'/api/public/articles/query',des:'监理-别墅',name:'stage'},
-                {id:'id',url:'',des:'陪签服务-别墅',name:'stage'},
-                {id:'id',url:'',des:'陪签服务-别墅',name:'stage'},
-                {id:'id',url:'',des:'陪签服务-别墅',name:'stage'}
+                {id:1,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-公寓',name:'stage'},
+                {id:2,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-复式',name:'stage'},
+                {id:3,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-别墅',name:'stage'},
+                {id:4,url:'',des:'陪签服务',name:'stage'}
             ],
             datalist:[]
         }
     },
     created(){
-        this.getDate(0,this.urlList[0].url);
-        this.$root.$on('transFn4',data => {
-            this.getDate(data,this.urlList[data].url);
-        });
+        this.getDate(0,this.urlList[0].url,this.urlList[0].id);
     },
     methods:{
         handleBtn(event){
@@ -49,24 +42,27 @@ export default {
             this.$root.$emit('loadInfo',true);
             this.getDate(index,i);
         },
-        getDate(index,i) {
-            this.$http({
-                url:i,
-                method: 'POST',
-                data:{},
-            }).then(res => {       
-                this.datalist=(res.data.info);
-                this.$root.$emit('searchInfo',[this.urlList[index].name,this.datalist,index,this.urlList[index].id,this.urlList[index].des]);
-                this.$root.$emit('loadInfo',false);
-            }).catch(error=>{
-                console.log(error);
-                // //         alert('网络错误，不能访问');
-            })
+        getDate(index,i,id) {
+            let datas = [];
+            datas.push(id)
+
+            this.$http.post(i, datas)
+                    .then(function(response) {
+                        console.log(response);
+                            this.datalist=(res.data.info);
+                        // this.$root.$emit('searchInfo',[this.urlList[index].name,this.datalist,index,this.urlList[index].id,this.urlList[index].des]);
+                        //获取数据给列表
+                            this.$root.$emit('loadInfo',false);
+                    })
+                    .catch(function(response) {
+                            console.log(error);
+                    });
         }
-    },
-    beforeDestroy(){
-        this.$root.$off('transFn4');
     }
+    // ,
+    // beforeDestroy(){
+    //     this.$root.$off('transFn4');
+    // }
 }
 </script>
 <style lang="less">
