@@ -17,14 +17,15 @@
                 <el-col :span="7" class="basic-right">
                     <div >
                         <h5>配置内容</h5>
-                        <el-button type="primary" class="add-btn" @click="addContent">新增</el-button>
+                        <el-button type="primary" class="add-btn" @click="addContent" v-show="isADDShow">新增</el-button>
                         <div class="basic-content">
                             <el-table
                                 v-loading="loadInfo"
                                 :data="tableData"
                                 :border="isBorder"
                                 height="640"
-                                style="width: 90%">
+                                style="width: 90%"
+                                v-show="isADDShow">
                                 <el-table-column
                                     :prop="name"
                                     :label="ruleForm.nameDes"
@@ -46,6 +47,31 @@
                                     <template slot-scope="scope">
                                         <el-button size="mini" v-if='editenable' @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                                         <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                            <!-- 以下是报告模板配置 -->
+                            <el-table
+                                v-loading="loadInfo"
+                                :data="reportTable"
+                                :border="isBorder"
+                                height="640"
+                                style="width: 90%"
+                                v-show="noADDShow">
+                                <el-table-column
+                                    prop="stageName"
+                                    :label="reportForm.reportTitle"
+                                    >
+                                    <template slot-scope="scope">
+                                        <span>{{ scope.row.stageName?scope.row.stageName:"陪签报告" }}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
+                                    prop="entryTemplateName"
+                                    :label="reportForm.reportName"
+                                    >
+                                     <template slot-scope="scope">
+                                        <span @click="selectReportClick(scope.$index, scope.row)">{{ scope.row.entryTemplateId== null?"请选择":scope.row.entryTemplateName }}</span>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -87,6 +113,7 @@
             </el-row>
         </el-main>
         <editDatetemp></editDatetemp>
+        <selectReportTem></selectReportTem>
         <editperiodspecial></editperiodspecial>
     </el-container>
 </template>
@@ -104,6 +131,7 @@ import Wordbar from './Wordbar'
 import editDatetemp from './editDatetemp'
 import editperiodspecial from './editPeriod_special'
 import reportTemplate from './reportTemplate'
+import selectReportTem from './selectReportTem.vue'
 export default {
     data () {
         return{
@@ -139,6 +167,7 @@ export default {
             parentId:0,
             number:0,
             tableData:[],
+            reportTable:[],
             ruleForm:{
                 id:'',title:'新增品牌',
                 nameDes:'品牌名称',name:'',
@@ -147,6 +176,14 @@ export default {
                 consumptionPointsName:'积分值',experienceName:'经验值',
                 consumptionPoints:null,experience:null,
             },
+            reportForm:{
+                reportTitle:'',reportName:'报告'
+            },
+            serviceTypeId:'',
+            typeId:'',
+            zdbindex:'',
+            isADDShow:true,
+            noADDShow:false,
             color:["#3f86fd","#32a1ff","#28c0f8","#0ecad1","#0dd980"],
             num:0,
             rules:{
@@ -233,6 +270,31 @@ export default {
             this.ruleForm.nameDes = this.desData[this.number].des;
             
         });
+        this.$root.$on('reportInfoSetting',(data) => {
+            this.reportTable = data.datalist
+            console.log(data.index)
+            this.zdbindex = data.index
+            if(data.index == 4){
+                this.reportForm.reportTitle = "陪签服务"
+                 this.serviceTypeId = 45
+                this.typeId = null
+            }
+            else if(data.index == 3){
+                this.reportForm.reportTitle = "阶段"
+                 this.serviceTypeId = 43
+                 this.typeId = 3
+            }
+            else if(data.index == 2){
+                this.reportForm.reportTitle = "阶段"
+                 this.serviceTypeId = 43
+                 this.typeId = 2
+            }
+            else if(data.index == 1){
+                this.reportForm.reportTitle = "阶段"
+                this.serviceTypeId = 43
+                 this.typeId = 1
+            }
+        })
         this.$root.$on('loadInfo',data => {
             this.loadInfo = data;
         });
@@ -254,10 +316,14 @@ export default {
                 text = productModel;
                 this.desData = this.productData;
                 this.modelIndex = 0;
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '商品模块'){
                 text = shopModel;
                 this.desData = this.shopData;
                 this.modelIndex = 1;
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '会员模块'){
                 text = memberModel;
                 this.desData = this.memberData;
@@ -271,17 +337,22 @@ export default {
                         this.userShow = true;
                     }
                 });
-
+                this.isADDShow = true;
+                this.noADDShow = false;
 
             }else if(text == '模板模块'){
                 text = publicModel;
                 console.log(publicModel);
                 this.desData = this.publicData;
-                this.modelIndex = 3;   
+                this.modelIndex = 3;
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '供应商模块'){
                 text = supplierModel;
                 this.desData = this.supplierData;
                 this.modelIndex = 4;
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '用户模块'){
                 text = userModel;
                 this.desData = this.userData;
@@ -293,26 +364,38 @@ export default {
                         this.levelShows = false;
                     }
                 });
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '房屋模块'){
                 text = houseModel;
                 this.desData = this.houseData;
                 this.modelIndex = 6;
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '渠道模块'){
                 text = channelModel;
                 this.desData = this.channelData;
-                this.modelIndex = 7;   
+                this.modelIndex = 7;
+                this.isADDShow = true;
+                this.noADDShow = false;   
             }else if(text == '知识库'){
                 text = knowledge;
                 this.desData = this.knowledge;
-                this.modelIndex = 8;   
+                this.modelIndex = 8;
+                this.isADDShow = true;
+                this.noADDShow = false;
             }else if(text == '词条列表'){
                 text = Wordbar;
                 this.desData = this.Wordbar;
-                this.modelIndex = 9;   
+                this.modelIndex = 9;
+                this.isADDShow = true;
+                this.noADDShow = false;  
             }else if(text == '报告模板'){
                 text = reportTemplate;
                 this.desData = this.reportTemplate;
                 this.modelIndex = 10;
+                this.isADDShow = false;
+                this.noADDShow = true;
             }
             this.userShow = true;
             this.userInfo = false;
@@ -404,6 +487,14 @@ export default {
         },
         handleEdit(index,row){
             this.$root.$emit('handledatetemp',{data:row,title:'编辑时间模板',type:'edit'})
+        },
+        //添加报告模板
+        selectReportClick(index,row){
+            let id = {
+                serviceTypeId:this.serviceTypeId,
+                typeId:this.typeId
+            }
+            this.$root.$emit('opendialogSelectReport',{"datas":row,"indexs":index,"isShow":true,"needId":id,'zbdindex':this.zdbindex})
         },
         addContent(){
             // 添加时间模板
@@ -553,7 +644,8 @@ export default {
         knowledge,
         editDatetemp,
         editperiodspecial,
-        reportTemplate
+        reportTemplate,
+        selectReportTem
     },
     beforeDestroy(){
         this.$root.$off('searchInfo');

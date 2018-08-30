@@ -2,7 +2,7 @@
     <div id="supplier-model">
         <h5>配置类型</h5>
         <ul class="basic-content">
-            <li v-for="(info,index) in typeData" :key="index" @click="findInfo(index,urlList[index].url)">
+            <li v-for="(info,index) in typeData" :key="index" @click="findInfo(index,urlList[index].url,urlList[index].id)">
                 <el-button type="primary" :class="{active:info.isActive}" :data-id="index" @click="handleBtn($event)" plain><i :class="info.icon"></i>{{info.name}}</el-button>
             </li>  
         </ul>
@@ -22,13 +22,20 @@ export default {
                 {id:1,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-公寓',name:'stage'},
                 {id:2,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-复式',name:'stage'},
                 {id:3,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-别墅',name:'stage'},
-                {id:4,url:'',des:'陪签服务',name:'stage'}
+                {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'陪签服务',name:'stage'}
             ],
             datalist:[]
         }
     },
     created(){
         this.getDate(0,this.urlList[0].url,this.urlList[0].id);
+        
+        this.$root.$on('saveReportTemplateInfos',(data) =>{
+                let index = data.indexs
+                let i = data.url
+                let id = data.zbdid
+                this.getDate(index,i,id);
+            });
     },
     methods:{
         handleBtn(event){
@@ -38,23 +45,25 @@ export default {
             let index = event.currentTarget.getAttribute("data-id");
             this.typeData[index].isActive = true;
         },
-        findInfo(index,i){
+        findInfo(index,i,id){
             this.$root.$emit('loadInfo',true);
-            this.getDate(index,i);
+            this.getDate(index,i,id);
         },
         getDate(index,i,id) {
             let datas = [];
             datas.push(id)
-
+            let that = this;
             this.$http.post(i, datas)
                     .then(function(response) {
                         console.log(response);
-                            this.datalist=(res.data.info);
+                            that.datalist=(response.data.info);
+                            console.log(that.datalist)
+                            that.$root.$emit('reportInfoSetting',{"datalist":that.datalist,"index":id})
                         // this.$root.$emit('searchInfo',[this.urlList[index].name,this.datalist,index,this.urlList[index].id,this.urlList[index].des]);
                         //获取数据给列表
-                            this.$root.$emit('loadInfo',false);
+                            that.$root.$emit('loadInfo',false);
                     })
-                    .catch(function(response) {
+                    .catch(function(error) {
                             console.log(error);
                     });
         }
