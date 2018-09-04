@@ -191,9 +191,9 @@
                         console.log(err)
                     });
                 //  查询小区信息
-                this.$http.get('/api/customer/estate/queryData')
+                this.$http.get('/api/customer/estate/queryData',{})
                     .then(res => {
-                        this.smallDisInfo = res.data.info;
+                        that.smallDisInfo = res.data.info;
                         //console.log(this.smallDisInfo);
                     }).catch(err => {
                         console.log(err)

@@ -45,6 +45,7 @@
                 <el-col :span='12'>
                     <el-form-item label="标签">
                         <el-select v-model="ruleForm.tages" placeholder="请选择级别类型" @change='changes'>
+                            
                             <el-option v-for=' (item,index) in dynamicTags' :key="index" :label='item.name' :value="item.id"></el-option>
                         </el-select>
                     </el-form-item>
@@ -275,20 +276,8 @@
                     });
                 }
             },
-            handleCloses(index) {
-                let list = [];
-                for (let i = 0; i < this.Tagbox.length; i++) {
-                    if (index != i) {
-                        list.push(this.Tagbox[i]);
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功！'
-                        });
-                    }
-                }
-                this.Tagbox = list;
-            },
             searchLabel() {
+    
                 let url = '/api/customer/label/query/label';
                 this.$http({
                         url: url,
@@ -304,6 +293,7 @@
                                 id: respone.data.info[i].id
                             })
                         }
+                        console.log(this.dynamicTags)
                     })
                     .catch(error => {
                         console.log(error);
@@ -311,6 +301,7 @@
                     })
             },
             changes(value) {
+
                 let obj = {};
                 let newObj = {};
                 obj = this.dynamicTags.find((item) => {
@@ -326,6 +317,7 @@
                     return item.id === value;
                 });
                 this.Tagbox.push(obj);
+                // this.ruleForm.tages = ""
                 //过滤重复项
                 var hash = {};
                 this.Tagbox = this.Tagbox.reduce(function(item, next) {
@@ -338,6 +330,34 @@
                     hashId[next.labelId] ? '' : hashId[next.labelId] = true && item.push(next);
                     return item
                 }, []);
+            },
+             handleCloses(index) {
+                let list = [];
+                for (let i = 0; i < this.Tagbox.length; i++) {
+                    if (index != i) {
+                        list.push(this.Tagbox[i]);
+                        console.log(this.TagboxId)
+                        
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功！'
+                        });
+                    }
+                }
+                console.log(list)
+                this.TagboxId = []
+                let newObj = {};
+                list.forEach((e,i) =>{
+                    newObj = {
+                        labelId: e.id,
+                        accountId: this.ruleForm.thisId
+                    }
+                    this.TagboxId.push(newObj)
+                })
+
+                this.Tagbox = list;
+                console.log(this.Tagbox)
+                console.log(this.TagboxId)
             },
             resetForm() {
                 this.$refs['ruleForm'].resetFields();
@@ -484,6 +504,7 @@
                                 this.ruleForm.county = infos.recommendedSourceId,
                                 this.ruleForm.ctypes = infos.level,
                                 this.ruleForm.panper = panperSF
+                                this.ruleForm.tages = ""
                             // this.ruleForm.sourceFns = respone.data.info;
                             // console.log(this.ruleForm.sourceFns)
                         })
@@ -491,6 +512,7 @@
                             console.log(error);
                             //         alert('网络错误，不能访问');
                         })
+                    //查询打上的标签
                     let urls = '/api/customer/customerAndLabel/findLabel?id=' + [data[0].id];
                     this.$http({
                             url: urls,
@@ -502,18 +524,15 @@
                             this.Tagbox = [];
                             for (let i = 0; i < respone.data.info.length; i++) {
                                 this.Tagbox.push(respone.data.info[i]);
-                                this.dynamicTags.push({
-                                    nickname: respone.data.info[i].name,
-                                    color: respone.data.info[i].color,
-                                    id: respone.data.info[i].id
-                                })
-                            }
-                            console.log(this.Tagbox)
+                                 console.log(this.Tagbox)
+                              }
                         })
                         .catch(error => {
                             console.log(error);
                             //         alert('网络错误，不能访问');
                         })
+                       // this.searchLabel();
+                        // console.log(this.dynamicTags)
                     this.dialogVisible = true;
                 } else {
                     this.ruleForm.textInfo = '新增会员';

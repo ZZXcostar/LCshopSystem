@@ -63,7 +63,7 @@
                                     :label="reportForm.reportTitle"
                                     >
                                     <template slot-scope="scope">
-                                        <span>{{ scope.row.stageName?scope.row.stageName:"陪签报告" }}</span>
+                                        <span>{{ scope.row.stageName?scope.row.stageName:"服务报告" }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -274,24 +274,49 @@ export default {
             this.reportTable = data.datalist
             console.log(data.index)
             this.zdbindex = data.index
-            if(data.index == 4){
+            if(data.index == 9){
+                this.reportForm.reportTitle = "单项水电服务"
+                 this.serviceTypeId = 57
+                this.typeId = null
+            }
+            else if(data.index == 8){
+                this.reportForm.reportTitle = "精装修验收服务"
+                 this.serviceTypeId = 55
+                this.typeId = null
+            }
+            else if(data.index == 7){
+                this.reportForm.reportTitle = "预算审核服务"
+                 this.serviceTypeId = 42
+                this.typeId = null
+            }
+            else if(data.index == 6){
+                this.reportForm.reportTitle = "决算服务"
+                 this.serviceTypeId = 58
+                this.typeId = null
+            }
+            else if(data.index == 5){
+                this.reportForm.reportTitle = "毛坯房验收服务"
+                 this.serviceTypeId = 54
+                this.typeId = null
+            }
+           else if(data.index == 4){
                 this.reportForm.reportTitle = "陪签服务"
                  this.serviceTypeId = 45
                 this.typeId = null
             }
             else if(data.index == 3){
                 this.reportForm.reportTitle = "阶段"
-                 this.serviceTypeId = 43
+                 this.serviceTypeId = 56
                  this.typeId = 3
             }
             else if(data.index == 2){
                 this.reportForm.reportTitle = "阶段"
-                 this.serviceTypeId = 43
+                 this.serviceTypeId = 56
                  this.typeId = 2
             }
             else if(data.index == 1){
                 this.reportForm.reportTitle = "阶段"
-                this.serviceTypeId = 43
+                this.serviceTypeId = 56
                  this.typeId = 1
             }
         })

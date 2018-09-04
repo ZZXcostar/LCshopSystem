@@ -72,6 +72,11 @@ export default {
                         [that.dataInfo.id]
                     ).then(res => {
                         console.log(res.data.msg);
+                        that.$message({
+                            type: 'info',
+                            message: res.data.msg,
+                            duration:800
+                        });   
                         that.$root.$emit('getDatezbd',1);
                     }).catch(err => {console.log(err)})
                 });

@@ -5,12 +5,9 @@
         </div>
         <div class="detailMain">
             <div class="detailLines"  >
-                <div class="detailLine detailLine1"><span>订单号 : {{details.number}}</span><span>订单类型 : {{details.orderType}}</span><span>小区名 : {{details.commodityName}}</span></div>
-                <div class="detailLine detailLine2"><span>下单时间 : {{details.createTime}}</span><span>服务区域 : {{details.number}}</span><span>客服备注 : {{details.number}}</span></div>
-                <div class="detailLine detailLine3"><span>服务类型 : {{details.serviceState}}</span><span>服务时间 : {{details.number}}</span><span>订单来源 : {{details.sourceName}}</span></div>
-                <div class="detailLine detailLine4"><span>支付状态 : {{details.payStateName}}</span><span>空调品牌 : {{details.number}}</span><span>支付金额 : {{details.paidMoney}}</span></div>
-                <div class="detailLine detailLine4"><span>合同编号 : {{details.contractNumber}}</span><span>来源账户 : {{details.sourceAccount}}</span><span>待付金额 : {{details.unpaidMoney}}</span></div>
-                <div class="detailLine detailLine4"><span>订单状态 : {{details.orderStateName}}</span><span>产品类型 : {{details.number}}</span><span></span></div>
+                <div class="detailLine detailLine1"><span>订单号 : {{details.number}}</span><span>订单类型 : {{details.orderType == 1?'新增服务订单':details.orderType == 2?'新增上门订单':details.orderType == 3?'追单':details.orderType == 4?'商城订单':'暂无订单类型'}}</span><span>小区名 : {{details.commodityName}}</span></div>
+                <div class="detailLine detailLine2"><span>下单时间 : {{details.createTime}}</span><span>支付状态 : {{details.payState == 1?'已支付':details.payState == 2?'未支付':details.payState == 3?'已过期':details.payState == 4?'pos机':'暂无支付状态'}}</span><span>支付金额 : {{details.paidMoney}}</span></div>
+                <div class="detailLine detailLine4"><span>待付金额 : {{details.unpaidMoney}}</span><span>订单状态 : {{details.orderState == 1?'未完成':details.orderState == 2?'已完成':details.orderState == 3?'异常订单':details.orderState == 4?'退款中':details.orderState == 5?'退款完成':details.orderState == 6?'取消订单':details.orderState == 7?'退款驳回':'暂无订单状态'}}</span></div>
                 <div class="lineAddress">详细地址 : {{details.detailAddress}}</div>
                 <div class="lineOriginDetail"><span>来源详细 : </span><el-input type="textarea" :rows="2" placeholder="请输入内容" >{{details.sourceDetail}}</el-input></div>
                 <div class="lineRepairRecord"><span>维修故障记录 : </span><el-input type="textarea" :rows="2" placeholder="请输入内容">{{details.remark}}</el-input></div>

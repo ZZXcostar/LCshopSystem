@@ -115,6 +115,51 @@
                     </el-form-item>
                 </el-col>
             </el-row>
+            <el-row>
+                <el-col :span="10" :offset='2'>
+                    <el-form-item label="城市："  prop='cityId'>
+                        <el-select v-model="dataform.cityId" placeholder="请选择" @change="selectQY(dataform.cityId)">
+                            <el-option
+                            v-for="item in cities"
+                            :key="item.id"
+                            :value-key="item.id"
+                            :label="item.regionName"
+                            :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col  :span="10">
+                    <el-form-item label="区域：" prop='disId'>
+                        <el-select v-model="dataform.disId"  placeholder="请选择">
+                            <el-option
+                            v-for="item in regions"
+                            :key="item.id"
+                            :value-key="item.id"
+                            :label="item.regionName"
+                            :value="item.id"
+                            >
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="10" :offset='2'>
+                    <el-form-item label="服务类型："  prop='serTypeId'>
+                        <el-select v-model="dataform.serTypeId"  placeholder="请选择">
+                            <el-option
+                            v-for="item in customerCategory"
+                            :key="item.id"
+                            :value-key="item.id"
+                            :label="item.serName"
+                            :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer" :center='true'>
             <el-button type="primary" round   @click="datahandle" v-if="iscreate">新增</el-button>
@@ -157,8 +202,15 @@ export default {
                 groupId:'',
                 groupName:'',
                 employeeTypeId:'',
-                employeeTypeName:''
+                employeeTypeName:'',
+                //以下新增字段
+                serTypeId:'',
+                cityId:'',
+                disId:'',
             },
+            cities:[],
+            regions:[],
+            customerCategory:[],
             // deplist:[],
             rolelist:[],
             employeetypelist:[],
@@ -199,11 +251,13 @@ export default {
     created:function(){
         this.$root.$on('opendialogemploy',(data)=>{
             // console.log(data);
-            this.rolelist=[];
+            this.customerCategory=[];
             this.depid=data.depid;
             this.getemployeetype();
             this.iscreate=data.iscreate;
             if(!data.iscreate){
+                this.getSerList();
+                this.getCity();
                 let data_current=data.data;
                 this.id=data_current.id;
                 let data_join=new Date(data_current.entryDate);
@@ -224,10 +278,15 @@ export default {
                 this.dataform.employeeTypeName=data_current.employeeTypeName;
                 this.dataform.phone=data_current.phone;
                 this.dataform.accStatus=data_current.accStatus;
+                this.dataform.serTypeId = data_current.serTypeId;
+                this.dataform.cityId = data_current.cityId;
+                this.dataform.disId = data_current.disId;
                 this.getrolelist(this.dataform.departmentId);
             }
             else{
                 this.cleardate();
+                this.getSerList();
+                this.getCity();
             }
             
             this.dialogmemberVisible=true;
@@ -250,6 +309,9 @@ export default {
             this.dataform.groupName='';
             this.dataform.employeeTypeId='';
             this.dataform.employeeTypeName='';
+            this.dataform.serTypeId='';
+            this.dataform.cityId='';
+            this.dataform.disId='';
         },
         selectdep(value){
             let obj = {};
@@ -328,6 +390,45 @@ export default {
             //     employeeTypeId:'',
             //     employeeTypeName:''
             // }
+        },
+        getSerList(){
+            let that = this;
+            var url = '/api/product/serviceType/queryList';
+            this.$http({
+                url: url,
+                method: 'post',
+                data: {},
+            }).then(respone => {
+                console.log(respone.data.info)
+                if(respone.data.info){
+                    let datas = respone.data.info
+                    that.customerCategory = datas;
+                }
+            })
+        },
+        getCity(){
+            let that = this;
+            this.$http.get(
+                '/api/public/region/findParent?grade=2'
+            ).then(res => {
+               // console.log(res.data.info)
+                if(res.data.info == '尚未登录'){
+                    alert('登录超时！')
+                }else{
+                    that.cities = res.data.info;
+                     console.log(that.cities)
+                }
+            })
+        },
+        selectQY(cityId){
+            let that = this;
+            let cId = cityId
+            this.$http.get(
+                '/api/public/region/findParent?grade=3&parentId='+cId
+            ).then(res => {
+              //  console.log(res.data.info)
+                that.regions = res.data.info;
+            })
         },
         datahandle(){
             let that=this;

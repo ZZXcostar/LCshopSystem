@@ -16,13 +16,23 @@ export default {
                 {'index':1,'icon':'el-icon-menu','isActive':true,'name':'监理-公寓'},
                 {'index':2,'icon':'el-icon-menu','isActive':false,'name':'监理-复式'},
                 {'index':3,'icon':'el-icon-menu','isActive':false,'name':'监理-别墅'},
-                {'index':4,'icon':'el-icon-sold-out','isActive':false,'name':'陪签服务'}
+                {'index':4,'icon':'el-icon-sold-out','isActive':false,'name':'陪签服务'},
+                {'index':5,'icon':'el-icon-sold-out','isActive':false,'name':'毛坯房验收服务'},
+                {'index':6,'icon':'el-icon-sold-out','isActive':false,'name':'决算服务'},
+                {'index':7,'icon':'el-icon-sold-out','isActive':false,'name':'预算审核服务'},
+                {'index':8,'icon':'el-icon-sold-out','isActive':false,'name':'精装修验收服务'},
+                {'index':9,'icon':'el-icon-sold-out','isActive':false,'name':'单项水电服务'},
             ],
             urlList:[
                 {id:1,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-公寓',name:'stage'},
                 {id:2,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-复式',name:'stage'},
                 {id:3,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-别墅',name:'stage'},
-                {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'陪签服务',name:'stage'}
+                {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'陪签服务',name:'stage'},
+                {id:5,url:'/api/public/EntryReportTemplate/queryByIds',des:'毛坯房验收服务',name:'stage'},
+                {id:6,url:'/api/public/EntryReportTemplate/queryByIds',des:'决算服务',name:'stage'},
+                {id:7,url:'/api/public/EntryReportTemplate/queryByIds',des:'预算审核服务',name:'stage'},
+                {id:8,url:'/api/public/EntryReportTemplate/queryByIds',des:'精装修验收服务',name:'stage'},
+                {id:9,url:'/api/public/EntryReportTemplate/queryByIds',des:'单项水电服务',name:'stage'},
             ],
             datalist:[]
         }

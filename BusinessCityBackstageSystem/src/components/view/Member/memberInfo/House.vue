@@ -186,12 +186,12 @@
                         console.log(err)
                     });
                 //  查询小区信息
-                this.$http.get('/api/customer/estate/queryData')
+                this.$http.get('/api/customer/estate/queryData',{})
                     .then(res => {
-                        this.smallDisInfo = res.data.info;
+                        that.smallDisInfo = res.data.info;
                         // console.log(this.smallDisInfo);
-                        this.smallDisInfo.forEach((e, i) => {
-                            this.$set(this.smallDisInfos, e.id, e.name)
+                        that.smallDisInfo.forEach((e, i) => {
+                            that.$set(that.smallDisInfos, e.id, e.name)
                         })
                         // console.log(this.smallDisInfos)
                     }).catch(err => {

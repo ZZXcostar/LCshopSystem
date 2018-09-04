@@ -109,7 +109,12 @@
                 {id:1,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-公寓',name:'stage'},
                 {id:2,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-复式',name:'stage'},
                 {id:3,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'监理-别墅',name:'stage'},
-                {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'陪签服务',name:'stage'}
+                {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'陪签服务',name:'stage'},
+                {id:5,url:'/api/public/EntryReportTemplate/queryByIds',des:'毛坯房验收服务',name:'stage'},
+                {id:6,url:'/api/public/EntryReportTemplate/queryByIds',des:'决算服务',name:'stage'},
+                {id:7,url:'/api/public/EntryReportTemplate/queryByIds',des:'预算审核服务',name:'stage'},
+                {id:8,url:'/api/public/EntryReportTemplate/queryByIds',des:'精装修验收服务',name:'stage'},
+                {id:9,url:'/api/public/EntryReportTemplate/queryByIds',des:'单项水电服务',name:'stage'},
             ],
             zbdindex:''
         };
@@ -123,10 +128,9 @@
                 let typeId = null;
                 let subData = null;
                  if(data.typeId == null || data.stageId == null){
-                     //陪签data
+                     //陪签类data
                    subData = {
-                        'serviceTypeId':serviceTypeId,
-                        'isService':true
+                        'serviceTypeId':serviceTypeId
                     }
                 }else{
                      typeId = data.typeId;
@@ -134,8 +138,7 @@
                     subData = {
                         "stageId":stageId,
                         'serviceTypeId':serviceTypeId,
-                        'typeId':typeId,
-                        'isService':true
+                        'typeId':typeId
                     }
                 }
                 this.loading=true;

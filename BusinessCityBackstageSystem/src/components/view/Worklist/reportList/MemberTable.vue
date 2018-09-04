@@ -93,6 +93,9 @@ export default {
         handleDelete(index, row,event) { //  删除某一种产品
             let that = this;
             console.log(row);
+            // if(row.isService){
+            //     alert('改报告模板正在使用')
+            // }
             this.$confirm('确定删除 "'+row.name+'"吗?', '提示', 
                 {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
             .then(() => {
@@ -104,6 +107,11 @@ export default {
                         [row.id]
                     ).then(res => {
                         console.log(res.data.msg);
+                        that.$message({
+                            type: 'info',
+                            message: res.data.msg,
+                            duration:800
+                        });   
                         that.getDate(1,{});
                     }).catch(err => {console.log(err)})
                 });

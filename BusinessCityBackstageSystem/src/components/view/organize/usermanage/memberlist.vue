@@ -79,6 +79,13 @@
                     
                 </template>
                 </el-table-column>
+                <!-- <el-table-column label="类型" align='center'>
+                    <template slot-scope='scope'>
+                        <span>
+                        {{scope.row.employeeTypeName}}
+                        </span>
+                    </template>
+                </el-table-column> -->
                 <el-table-column prop="Opera" label="操作" align='center' width='100'>
                     <template slot-scope="scope">
                         <el-button size="mini" type='text' @click="handleEdit(scope.row)">编辑</el-button>
@@ -113,7 +120,7 @@ export default {
             searchtext:'展开搜索',
             styledata:{
                 width: '100%',
-                height:'90%'
+                height:'98%'
             },
             data:{
                 adminName:null,
@@ -153,13 +160,13 @@ export default {
             if(flag){
                 this.styledata={
                     width: '100%',
-                    height:'40%'
+                    height:'68%'
                 }
             }
             else{
                 this.styledata={
                     width: '100%',
-                    height:'90%'
+                    height:'98%'
                 }
             }
             this.$root.$emit('switch',flag);

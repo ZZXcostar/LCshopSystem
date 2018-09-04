@@ -148,6 +148,20 @@ export default {
                 });
             })
         },
+        //查询小区
+        // houseInfos(){
+        //     return new Promise((resolve, reject) => {
+        //         this.$http.get('/api/customer/estate/queryData',{})
+        //         .then(res => {
+        //             this.memberHouse = res.data.info;
+        //             //console.log(this.smallDisInfo);
+        //             resolve(true);
+        //         }).catch(err => {
+        //             console.log(err)
+        //             reject(false)
+        //         });
+        //     })
+        // },
         editInfo(event) {//详情编辑
             let that = this;
             let text = event.currentTarget.innerHTML;
@@ -156,6 +170,7 @@ export default {
                 this.ruleForm.active = false
                 this.active = true
                 this.userInfo();
+                // this.houseInfos();
             } else {
                 event.currentTarget.innerHTML = '编辑';
                 this.ruleForm.active = true;
