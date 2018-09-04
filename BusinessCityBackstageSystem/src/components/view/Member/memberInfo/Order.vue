@@ -3,10 +3,10 @@
         <div class="isSwitch" v-show="isSwitchOrderDetail">
             <ul class="orderMain">
                 <li v-for="info in infos" :key="info.id" >
-                    <div class="orderDiv"><span>订单号 : {{info.number}}</span><span>服务类型 : {{info.serviceTypeId}}</span><span>支付金额 : {{info.paidMoney}}</span></div>
-                    <div class="orderDiv"><span>下单时间 : {{info.createTime}}</span><span>订单状态 : 
+                    <div class="orderDiv"><span>订单号 : {{info.number}}</span><span>支付金额 : {{info.paidMoney}}</span><span>订单状态 : 
                         {{info.orderState == 1?"未完成":info.orderState == 2?"已完成":info.orderState == 3?"异常订单":info.orderState == 4?"退款中":
-                        info.orderState == 5?"退款完成":info.orderState == 6?"取消订单":info.orderState == 7?"退款驳回":''}}</span><span>服务人员 : {{info.operatorId}}</span></div>
+                        info.orderState == 5?"退款完成":info.orderState == 6?"取消订单":info.orderState == 7?"退款驳回":''}}</span></div>
+                    <div class="orderDiv"><span>下单时间 : {{info.createTime}}</span></div>
                     <div class="orderBtn">
                         <div class="btnGroup">
                             <el-button @click="jumpOrderDetail(info)" type="primary" style="border-radius:4px;">查看详情</el-button>

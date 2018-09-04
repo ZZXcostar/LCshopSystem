@@ -622,20 +622,20 @@
                 let orderInfo = '';
                 let textInfo = '';
                 if (this.ruleForm.orderType == '新增服务订单') {
-                    textInfo = 0
-                } else if (this.ruleForm.orderType == '新增上门订单') {
                     textInfo = 1
-                } else if (this.ruleForm.orderType == '追单') {
+                } else if (this.ruleForm.orderType == '新增上门订单') {
                     textInfo = 2
+                } else if (this.ruleForm.orderType == '追单') {
+                    textInfo = 3
                 } else {
                     textInfo = this.ruleForm.orderType
                 }
                 if (this.ruleForm.orderState == '未完成') {
-                    orderInfo = 0
-                } else if (this.ruleForm.orderState == '已完成') {
                     orderInfo = 1
-                } else if (this.ruleForm.orderState == '异常订单') {
+                } else if (this.ruleForm.orderState == '已完成') {
                     orderInfo = 2
+                } else if (this.ruleForm.orderState == '异常订单') {
+                    orderInfo = 3
                 } else {
                     orderInfo = this.ruleForm.orderState
                 }
