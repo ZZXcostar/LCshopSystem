@@ -60,6 +60,10 @@ export default {
         {
           infoText: '工单配置',
           imgClass: 'icon iconfont icon-order'
+        },
+        {
+          infoText: '小程序',
+          imgClass: 'icon iconfont icon-xiaochengxu1'
         }
       ],
       activeName: 'one'
@@ -161,6 +165,8 @@ export default {
         navInfo = 'eight'
       } else if (navInfo == '基础配置') {
         navInfo = 'night'
+      }else if (navInfo == '小程序') {
+        navInfo = 'ten'
       }
 
       this.$root.$emit('infoText', navInfo)

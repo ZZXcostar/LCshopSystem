@@ -189,6 +189,21 @@ export default new Router({
                     path: 'assignedAppointment', //指派工单
                     name: 'assignedAppointment',
                     component: resolve => require(['@/components/view/Worklist/assignedAppointment/assignedAppointment.vue'], resolve)
+                },
+                {
+                    path: 'subject', //答题管理
+                    name: 'subject',
+                    component: resolve => require(['@/components/view/answer/subject/subject.vue'], resolve)
+                },
+                {
+                    path: 'conclusion', //结论管理
+                    name: 'conclusion',
+                    component: resolve => require(['@/components/view/answer/conclusion/conclusion.vue'], resolve)
+                },
+                {
+                    path: 'record', //答题记录
+                    name: 'record',
+                    component: resolve => require(['@/components/view/answer/record/record.vue'], resolve)
                 }
             ]
 

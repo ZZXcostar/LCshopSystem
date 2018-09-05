@@ -7,6 +7,7 @@ import sixs from './siderchildren/six'
 import events from './siderchildren/event'
 import eights from './siderchildren/eight'
 import nights from './siderchildren/night'
+import ten from './siderchildren/ten'
 export default {
   data () {
     return {
@@ -34,5 +35,6 @@ export default {
     sevent: events,
     eight: eights,
     night: nights,
+    ten:ten
   }
 }
