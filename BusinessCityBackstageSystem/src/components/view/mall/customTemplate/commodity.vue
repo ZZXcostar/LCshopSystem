@@ -260,7 +260,7 @@ import { mapState,mapMutations,mapGetters } from 'vuex'
              this.$root.$emit('opendialogProduct',true)
               let indexs = index;
              let dataids = this.dataid;
-             let types = "imageAds";
+             let types = "commodity";
             // alert(indexs)
              this.$root.$emit('customizeData',{indexs,dataids,types})
          },

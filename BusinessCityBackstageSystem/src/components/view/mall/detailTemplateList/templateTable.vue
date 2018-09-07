@@ -67,7 +67,7 @@
         </template>
         </el-table-column> 
     </el-table>
-     <div class="dialog" id="dialog">
+     <div class="dialog" id="dialogzbd">
         <div class="dialog_head" id="move_part" @mouseover="phoneDialog()">可拖拽部分</div>
         <div class="dialog_content">
             <iframe :src="iframeLink" frameborder="0" class="template_iframe"></iframe>
@@ -90,7 +90,7 @@ export default {
             showLeft:0,
             pageIndex:1,
             iframeLink:'',
-            apis:'http://www.shhongzhiyun.com/'
+            apis:'http://daojia.jingrunjia.com.cn/'
         }
     },
     created:function(){
@@ -132,11 +132,11 @@ export default {
            //   101.89.175.155 服务器地址
           console.log(this.iframeLink)
           window.sessionStorage.setItem ("detailTemplateUrl",this.iframeLink);
-          document.getElementById('dialog').style.display = 'block';
-          this.autoCenter(document.getElementById('dialog'));
+          document.getElementById('dialogzbd').style.display = 'block';
+          this.autoCenter(document.getElementById('dialogzbd'));
         },
         closeBower(){
-             document.getElementById('dialog').style.display = 'none';
+             document.getElementById('dialogzbd').style.display = 'none';
         },
         autoCenter(el){
             //获取可见窗口大小
@@ -152,7 +152,7 @@ export default {
         phoneDragFn(){
             //禁止选中对话框内容
             if(document.attachEvent) {//ie的事件监听，拖拽div时禁止选中内容，firefox与chrome已在css中设置过-moz-user-select: none; -webkit-user-select: none;
-                document.getElementById('dialog').attachEvent('onselectstart', function() {
+                document.getElementById('dialogzbd').attachEvent('onselectstart', function() {
                 return false;
                 });
             }
@@ -168,7 +168,7 @@ export default {
             };
             //窗口大小改变时，对话框始终居中
             window.onresize = function(){
-                autoCenter( document.getElementById('dialog'));
+                autoCenter( document.getElementById('dialogzbd'));
             };
         },
         phoneDialog(){
@@ -182,8 +182,8 @@ export default {
                     var e = e || window.event;
                     mx = e.pageX;      //点击时鼠标X坐标
                     my = e.pageY;      //点击时鼠标Y坐标
-                    dx = document.getElementById('dialog').offsetLeft;
-                    dy = document.getElementById('dialog').offsetTop;
+                    dx = document.getElementById('dialogzbd').offsetLeft;
+                    dy = document.getElementById('dialogzbd').offsetTop;
                     isDraging = true;      //标记对话框可拖动
                 });
                 document.onmousemove = function(e){
@@ -193,8 +193,8 @@ export default {
                     if(isDraging){        //判断对话框能否拖动
                         var moveX = dx + x - mx;      //移动后对话框新的left值
                         var moveY = dy + y - my;      //移动后对话框新的top值
-                        document.getElementById('dialog').style.left = moveX +'px';       //重新设置对话框的left
-                        document.getElementById('dialog').style.top =  moveY +'px';     //重新设置对话框的top
+                        document.getElementById('dialogzbd').style.left = moveX +'px';       //重新设置对话框的left
+                        document.getElementById('dialogzbd').style.top =  moveY +'px';     //重新设置对话框的top
 
                     };
                 };
@@ -204,15 +204,15 @@ export default {
                 //设置拖动范围
                 var pageW = document.documentElement.clientWidth;
                 var pageH = document.documentElement.clientHeight;
-                var dialogW = document.getElementById('dialog').offsetWidth;
-                var dialogH = document.getElementById('dialog').offsetHeight;
+                var dialogW = document.getElementById('dialogzbd').offsetWidth;
+                var dialogH = document.getElementById('dialogzbd').offsetHeight;
                 var maxX = pageW - dialogW;       //X轴可拖动最大值
                 var maxY = pageH - dialogH;       //Y轴可拖动最大值
                 //moveX = Math.min(Math.max(0,moveX),maxX);     //X轴可拖动范围
                 //moveY = Math.min(Math.max(0,moveY),maxY);     //Y轴可拖动范围
 
-                //document.getElementById('dialog').style.left = moveX +'px';       //重新设置对话框的left
-                //document.getElementById('dialog').style.top =  moveY +'px';        //重新设置对话框的top
+                //document.getElementById('dialogzbd').style.left = moveX +'px';       //重新设置对话框的left
+                //document.getElementById('dialogzbd').style.top =  moveY +'px';        //重新设置对话框的top
             },
         handleDelete(index, row,event) { //  删除某一个模板
             let that = this;

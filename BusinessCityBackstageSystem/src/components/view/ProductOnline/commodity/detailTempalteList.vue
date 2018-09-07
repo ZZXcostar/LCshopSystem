@@ -63,7 +63,7 @@
                 right: 2%;
                 top: 88%;">
                 </el-pagination>
-                <div class="zbd-selectedTip" v-show="selectedDiv">已选择：<span :style="tipcolor">{{ selectedTitle }}</span></div>
+                <div class="zbd-selectedTipd" v-show="selectedDiv">已选择：<span :style="tipcolor">{{ selectedTitle }}</span></div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisibless = false">取 消</el-button>
                 <el-button type="primary" :disabled="disabled" @click="saveTemplateID">确 定</el-button>
@@ -264,7 +264,7 @@
         line-height:10px;
         background-color:#ebeef5;
     } */
-    .zbd-selectedTip{
+    .zbd-selectedTipd{
         position: absolute;
         top: 13%;
         right: 2%;

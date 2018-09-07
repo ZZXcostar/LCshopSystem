@@ -609,16 +609,22 @@ export default {
                 var myArr = new Array(Mult);
                 var key;
                 var value;
-                console.log(finalArr)
+                //console.log(Mult)
+                let arrLen = arrs.length
+	            //console.log(arrLen)
                 for (var u = 0; u < Mult; u++) {
                     var json = {};
-                    for (var k = 0; k < arrs.length; k++) {
-                        key = arrs[k].name;
-                        json[key] = finalArr[u][k];
-                       // json[key] = finalArr[u];
-                      //  console.log(key)
-                        console.log(finalArr[u])
-                        //console.log(json[key])
+                    if(arrLen == 1){
+                        //console.log(arrs)
+                        for (var k = 0; k < arrs.length; k++) {
+                            key = arrs[k].name;
+                            json[key] = finalArr[u];
+                        }
+                    }else if(arrLen > 1){
+                        for (var k = 0; k < arrs.length; k++) {
+                            key = arrs[k].name;
+                            json[key] = finalArr[u][k];
+                        }
                     }
                     myArr[u] = json;
                 }

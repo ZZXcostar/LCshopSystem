@@ -89,7 +89,7 @@
                 right: 2%;
                 top: 88%;">
                 </el-pagination>
-                <div class="zbd-selectedTip" v-show="selectedDiv">已选择：<span :style="tipcolor">{{ selectedTitle }}</span></div>
+                <div class="zbd-selectedTips" v-show="selectedDiv">已选择：<span :style="tipcolor">{{ selectedTitle }}</span></div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" :disabled="disabled" @click="saveUrl">确 定</el-button>
@@ -281,7 +281,7 @@
                 }else{
                     let dataids = this.dataid;
                     let index = this.indexs;
-                    let inputs = 'http://www.shhongzhiyun.com/detailTemplate?commodityId='+this.input;
+                    let inputs = 'http://daojia.jingrunjia.com.cn/detailTemplate?commodityId='+this.input;
                     let type = this.typess;
                     // alert(dataids)
                     // alert(index)
@@ -406,7 +406,7 @@
         line-height:10px;
         background-color:#ebeef5;
     }
-    .zbd-selectedTip{
+    .zbd-selectedTips{
         position: absolute;
         top: 13%;
         right: 2%;
