@@ -3,7 +3,7 @@
         <div class="memberNav" @click.native="closeInfo">
             <el-row class="navChild">
                 <el-col :span='20' class="topLeft">
-                    <h3 class="listName">{{namepage}}
+                    <h3 class="listNames">{{namepage}}
 		                <i class="icon-double-angle-right"></i>
 		            </h3>
                 </el-col>
@@ -96,7 +96,7 @@
     	float: right;
     	height: 60px;
     }
-    .listName{
+    #member .listNames{
     	height: 20px;
     	padding-left: 20px;
     	font-size: 20px;
