@@ -50,6 +50,7 @@
 			})
 			.then(response => {
 				//将数据传输到列表组件
+				console.log(response.data.info.list)
 				if(response.status==200){
 					that.jectList=response.data.info.list
 				}else{
@@ -57,8 +58,7 @@
 						type: 'info',
 						message: '数据加载失败'
 					});
-				}
-									
+				}				
 			})
 			.catch(error => {
 				console.log(error);
@@ -169,6 +169,7 @@
 			},
 			//单条数据请求
 			setjectr(id,sort){
+				console.log(id,sort)
 				var that=this
 				var url='/api/customer/questionnaire/subject/update'
 				this.$http({
@@ -182,7 +183,6 @@
 					}
 				})
 				.then(response => {
-					console.log(response)
 					// 将数据传输到列表组件
 					if(response.status==200){
 						that.$message({

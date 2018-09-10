@@ -2,7 +2,7 @@
 	<el-dialog :title="title" width="494px" :visible.sync="isDial">
 		<el-form :model="form">
 			<el-form-item label="装修称号：" :label-width="formLabelWidth">
-				<el-input v-model="form.name" placeholder="请输入问题" auto-complete="off" class="timu"></el-input>
+				<el-input v-model="form.name" placeholder="请输入问题" auto-complete="off" class="contimu"></el-input>
 				<p ref="pp">*文字要求4-5字之间</p>
 			</el-form-item>
 			<el-form-item label="答对区间：" :label-width="formLabelWidth">
@@ -27,7 +27,6 @@
 		</div>
 	</el-dialog>
 </template>
-
 <script>
 export default {
   data() {
@@ -274,7 +273,7 @@ export default {
   width: 60%;
 }
 
-.timu {
+.contimu {
   width: 267px;
 }
 

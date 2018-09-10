@@ -27,7 +27,7 @@ export default {
       form: {},
       subjectId: "",
       edit: false,
-      actNum: 0,
+      actNum:10,
       formLabelWidth: "120px",
     };
   },
@@ -56,7 +56,7 @@ export default {
           { label: "C" ,isCorrect:false},
           { label: "D" ,isCorrect:false}
         ];
-        this.actNum = 0;
+        this.actNum = 10;
         this.edit = false;
       }
     });

@@ -48,12 +48,24 @@
 		},
 		created() {
 			this.$root.$on('viewDateil', (data,row) => {
+				console.log(data)
 				if (data == 'no') {
-					console.log(row)
 						this.usinfo.phone = '用户名：'+ row.customerPhone;
 						this.usinfo.title = row.resultTitle;
 						this.usinfo.date = row.createTime;
 						this.isDial = true;
+						var aa='';
+						aa=row.questionnaireRecordDetailList
+						console.log(aa)
+						for(let i=0;i<aa.length;i++){
+							if(aa[i].correctAnswerContent.indexOf(aa[i].correctAnswerLabel+'、') != -1){
+								break
+							}else{
+								aa[i].correctAnswerContent=aa[i].correctAnswerLabel+'、'+aa[i].correctAnswerContent
+								aa[i].customerAnswerContent=aa[i].customerAnswerLabel+'、'+aa[i].customerAnswerContent
+							}
+						}
+						console.log(aa)
 						this.gridData=row.questionnaireRecordDetailList
 				}
 			});
