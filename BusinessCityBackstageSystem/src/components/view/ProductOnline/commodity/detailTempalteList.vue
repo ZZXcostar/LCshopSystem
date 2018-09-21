@@ -59,7 +59,7 @@
                 :total="total"
                 style="text-align: right;
                 position: absolute;
-                bottom: 2%;
+                bottom: 8%;
                 right: 2%;
                 top: 88%;">
                 </el-pagination>

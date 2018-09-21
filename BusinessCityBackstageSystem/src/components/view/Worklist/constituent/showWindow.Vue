@@ -190,7 +190,7 @@
             },
             getentryitem(val) {
                 this.ruleForm.entryitem = '';
-                let url = '/api/public/entryitem/query';
+                let url = '/api/public/entryitem/queryMap';
                 this.$http({
                         url: url,
                         method: 'POST',
@@ -203,7 +203,7 @@
                         }
                     })
                     .then(res => {
-                        this.entryitemArr = (res.data.info.list)
+                        this.entryitemArr = (res.data.info)
                     })
                     .catch(error => {
                         console.log(error);

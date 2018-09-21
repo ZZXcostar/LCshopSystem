@@ -67,6 +67,11 @@ export default {
     created: function () {
         this.getSerList();
         this.getCity();
+        this.$root.$on('updataAssigneTable', (data) => {
+            if(data){
+                this.getList()
+            }
+        })
     },
     methods:{
         getSerList(){
@@ -140,6 +145,9 @@ export default {
                 this.$root.$emit('total1',respone.data.info.total)
             })
         },
+    },
+    beforeDestroy() {
+        this.$root.$off('updataAssigneTable');
     }
 }
 </script>

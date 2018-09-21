@@ -131,6 +131,26 @@ export default {
                             data: datas,
                         }).then(respone => {
                             console.log(respone)
+                            if(respone.info){
+                                this.$message({
+                                    type: 'info',
+                                    message: '派单成功',
+                                    duration:800
+                                    });
+                                    this.$root.$emit('updataAssigneTable',true)
+                            }else if(respone.info == false){
+                                this.$message({
+                                    type: 'info',
+                                    message: '请勿重复派单',
+                                    duration:800
+                                    });
+                            }else{
+                                this.$message({
+                                    type: 'info',
+                                    message: '派单失败',
+                                    duration:800
+                                    });
+                            }
                         }).catch(error =>{
                             console.log(error)
                         })

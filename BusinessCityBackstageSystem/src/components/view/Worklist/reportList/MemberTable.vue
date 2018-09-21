@@ -128,7 +128,7 @@ export default {
         },
         getDate(pageIndex,data) {
             this.listLoading =  true;
-            let url = '/api/public/entrytemplate/query?pageNum='+(pageIndex?pageIndex:1)+'&pageSize=10'
+            let url = '/api/public/entrytemplate/query?page='+(pageIndex?pageIndex:1)+'&pageSize=10'
             let datas = data;
             let dataz;
             if(JSON.stringify(datas)=="{}"){

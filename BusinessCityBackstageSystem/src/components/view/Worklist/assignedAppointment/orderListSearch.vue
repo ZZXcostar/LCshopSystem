@@ -122,6 +122,11 @@ export default {
         this.getTemplate();
         this.cityDis();
         this.getcustonerCategory();
+        this.$root.$on('updataAssigneTable', (data) => {
+            if(data){
+                this.searchTable()
+            }
+        })
     },
     methods: {
         getcustonerCategory(){
@@ -298,6 +303,9 @@ export default {
                 }
                 return num;
             },
+    },
+    beforeDestroy() {
+        this.$root.$off('updataAssigneTable');
     }
 }
 </script>
