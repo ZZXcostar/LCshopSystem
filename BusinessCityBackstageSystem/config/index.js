@@ -10,7 +10,8 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: 'http://192.168.250.197/', //设置你调用的接口域名和端口号 别忘了加http
+                // target: 'http://192.168.250.197/', //设置你调用的接口域名和端口号 别忘了加http
+                target: 'http://qqq.shhongzhiyun.com/api/',
                 // target: 'http://192.168.199.130/',
                 // target: 'http://192.168.199.207/',
                 // target: 'http://192.168.199.106/',
