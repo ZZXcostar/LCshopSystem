@@ -89,6 +89,7 @@ export default{
             dialogVisible: false,
             isLoading:true,
             memberIde:'',
+            memberId:'',
             number:0,
             numbers:0,
             dataList:[],
@@ -142,7 +143,7 @@ export default{
             this.$http({
                 url:'/api/customer/visits/findData',
                 method:'POST',
-                 data:{id:localStorage.getItem("zbdOrderIds")}
+                 data:{orderId:localStorage.getItem("zbdOrderIds")}
             }).then((res) => {
                 that.dataList = res.data.info.list;
                 for(let i =  0;i<this.dataList.length;i++){
@@ -186,13 +187,13 @@ export default{
                 feedback:this.diagForm.Feedback,
                 report:this.diagForm.report,
                 time:this.diagForm.time,              //回访时长
-                visitTypeId:this.diagForm.visitTypeId,
+                visitTypeId:this.diagForm.visitType,
                 customerId:this.memberIde             //会员的ID
             }];
             this.$refs['diagForm'].validate((valid) => {
                 if (valid) {
                     data.forEach((e,i) => {
-                        if(e.adminUserId == '' || e.feedback == '' || e.report == '' || e.visitTypeId == '' || e.customerId == ''){
+                        if(e.adminUserId == '' || e.feedback == '' || e.report == '' || e.visitType == '' || e.customerId == ''){
                             this.$message.error('内容不能有空!');
                             return false;
                         }else{

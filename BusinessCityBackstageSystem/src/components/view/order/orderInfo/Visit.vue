@@ -45,7 +45,7 @@
                 <el-form-item class="visit-item" label="回访用户:" >
                     <el-input v-model="diagForm.userId"></el-input>
                 </el-form-item>
-                <el-form-item class="visit-item" label="回访类型:">
+                <el-form-item class="visit-item" label="回访类型:"  prop="visitType">
                     <el-col :span="10">
                     <el-select v-model="diagForm.visitType" placeholder="请选择">
                         <el-option
@@ -73,7 +73,7 @@
 </template>
 <script>
 export default{
-    props:['memberId'],
+    props:['memberId','orderId'],
     data () {
         var validateTime = (rule,value,callback) => {
             if(!value){
@@ -89,6 +89,9 @@ export default{
             dialogVisible: false,
             isLoading:true,
             memberIde:'',
+            orderIde:'',
+            memberId:'',
+            orderId:'',
             number:0,
             numbers:0,
             dataList:[],
@@ -123,6 +126,7 @@ export default{
     created(){
         this.searchInfo();
         this.memberIde = this.memberId;
+        this.orderIde = this.orderId
         this.$root.$on('loadFn',data =>{
             this.searchInfo();
         });
@@ -143,7 +147,7 @@ export default{
             this.$http({
                 url:'/api/customer/visits/findData',
                 method:'POST',
-                data:{id:sessionStorage.getItem("zbdOrderIds")}
+                data:{orderId:sessionStorage.getItem("zbdOrderIds")}
             }).then((res) => {
                 that.dataList = res.data.info.list;
                 console.log(that.dataList)
@@ -189,14 +193,15 @@ export default{
                 feedback:this.diagForm.Feedback,
                 report:this.diagForm.report,
                 time:this.diagForm.time,              //回访时长
-                visitTypeId:this.diagForm.visitTypeId,
-                customerId:this.memberIde             //会员的ID
+                visitTypeId:this.diagForm.visitType,
+                customerId:this.memberIde,             //会员的ID
+                orderId:this.orderIde
             }];
             this.$refs['diagForm'].validate((valid) => {
                 
                 if (valid) {
                     data.forEach((e,i) => {
-                        if(e.adminUserId == '' || e.feedback == '' || e.report == '' || e.visitTypeId == '' || e.customerId == ''){
+                        if(e.adminUserId == '' || e.feedback == '' || e.report == '' || e.visitType == '' || e.customerId == ''){
                             this.$message.error('内容不能有空!');
                             return false;
                         }else{

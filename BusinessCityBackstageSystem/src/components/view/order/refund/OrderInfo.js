@@ -37,6 +37,7 @@ export default {
             which_to_show: '',
             default1: true,
             orderId: '',
+            memberId:'',
             pageNum: 1,
             pageSize: 3,
             typeWord: '',
@@ -57,8 +58,10 @@ export default {
             this.searchInfo(data[0]);
             this.orderId = data[0];
             this.order = data[1];
+            this.memberId = data[2];
             console.log(data[1])
             sessionStorage.setItem("orderId",data[1].number)
+            sessionStorage.setItem("zbdOrderIds",data[1].id)
             this.upData();
         });
         this.$root.$on('orderCoverShow', (left) => { //  显示侧滑框的方法

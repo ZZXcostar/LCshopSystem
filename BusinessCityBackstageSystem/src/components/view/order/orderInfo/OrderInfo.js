@@ -38,6 +38,7 @@ export default {
             which_to_show: '',
             default1: true,
             orderId: '',
+            memberId:'',
             invoice:'',
             pageNum: 1,
             pageSize: 3,
@@ -58,6 +59,7 @@ export default {
             this.searchInfo(data[0]);
             this.orderId = data[0];
             this.order = data[1];
+            this.memberId = data[2];
             let url = '/api/customer/account/queryMap';
             this.$http({
                 url: url,
@@ -74,6 +76,7 @@ export default {
             console.log(data[1].memberId)
             sessionStorage.setItem("orderId", data[1].number)
             sessionStorage.setItem("invoice",data[1].number)
+            sessionStorage.setItem("zbdOrderIds",data[1].id)
             this.upData();
         });
         this.$root.$on('orderCoverShow', (left) => { //  显示侧滑框的方法

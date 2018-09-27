@@ -85,6 +85,7 @@ export default{
             dialogVisible: false,
             isLoading:true,
             memberIde:'',
+            memberId:'',
             number:0,
             numbers:0,
             dataList:[],
@@ -183,7 +184,7 @@ export default{
             this.$refs['diagForm'].validate((valid) => {
                 if (valid) {
                     data.forEach((e,i) => {
-                        if(e.feedback == '' || e.report == '' || e.visitTypeId == '' || e.customerId == ''){
+                        if(e.feedback == '' || e.report == '' || e.visitType == '' || e.customerId == ''){
                             this.$message.error('内容不能有空!');
                             return false;
                         }else{

@@ -175,7 +175,7 @@ export default {
                 ).then(res => {
                     if(res.data.status == 200){
                         that.$root.$emit('orderCoverShow',that.showLeft)
-                        that.$root.$emit('searchOrderInfo',[row.id,res.data.info.list[0]]);
+                        that.$root.$emit('searchOrderInfo',[row.id,res.data.info.list[0],row.memberId]);
                     }
                 }).catch(err => {
                     console.log(err);
