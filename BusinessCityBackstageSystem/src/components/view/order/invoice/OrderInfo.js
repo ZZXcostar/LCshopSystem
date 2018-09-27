@@ -68,6 +68,7 @@ export default {
             this.order = data[1];
             // console.log(data[1])
             sessionStorage.setItem("orderId",data[1].number)
+            sessionStorage.setItem("zbdOrderIds",data[1].id)
             this.upData();
         });
         this.$root.$on('orderCoverShow', (left) => { //  显示侧滑框的方法

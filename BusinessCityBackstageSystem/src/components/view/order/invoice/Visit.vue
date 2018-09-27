@@ -142,7 +142,7 @@ export default{
             this.$http({
                 url:'/api/customer/visits/findData',
                 method:'POST',
-                 data:{id:localStorage.getItem("orderId")}
+                 data:{id:localStorage.getItem("zbdOrderIds")}
             }).then((res) => {
                 that.dataList = res.data.info.list;
                 for(let i =  0;i<this.dataList.length;i++){

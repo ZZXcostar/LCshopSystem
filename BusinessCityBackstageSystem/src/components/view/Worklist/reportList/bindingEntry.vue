@@ -80,7 +80,7 @@ export default {
         getDate() {
             this.listLoading =  true;
             let that = this;
-            let url = '/api/public/articles/queryall';
+            let url = '/api/public/articles/queryall?page=0&pageSize=0';
             this.$http({
                 url: url,
                 method: 'post',
