@@ -85,6 +85,18 @@
                                     </el-select>
                             </el-form-item>
                         </el-col>
+                        <!-- <el-col :span="8"> 
+                            <el-form-item class="visit-item" label="未接单:">
+                                    <el-select v-model="ruleForm.acceptedValue" placeholder="请选择">
+                                        <el-option
+                                        v-for="(item,index) in ruleForm.acceptedArr"
+                                        :key="index" 
+                                        :label="item.name" 
+                                        :value="item.boolean">
+                                        </el-option>
+                                    </el-select>
+                            </el-form-item>
+                        </el-col> -->
                         <el-col :span="5" style="margin-left:10%;">
                             <el-button type="primary" @click="searchTable">查询</el-button>
                         </el-col>
@@ -113,6 +125,11 @@ export default {
                 regions:[],
                 countyDistrict:'',
                 streetInfo:[],
+                acceptedValue:"",
+                acceptedArr:[
+                    {"boolean":true,"name":"未接单的工单"},
+                    {"boolean":true,"name":"未接单的订单"}
+                ],
                 streetValue:''
             },
         }

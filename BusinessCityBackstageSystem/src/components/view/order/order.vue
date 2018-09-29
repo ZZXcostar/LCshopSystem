@@ -34,7 +34,7 @@
                                     </el-upload>
                                 </el-dropdown-item>
                                 <el-dropdown-item class="outPut">
-                                    <a class="btn-download" :href="dataHref">导出</a>
+                                    <a class="btn-download" @click="dataHref" >导出</a>
                                 </el-dropdown-item>
                                 <el-dropdown-item class="outPut">
                                     <a class="btn-download" href="/api/product/order/excelModel/out">导出导入模板</a>

@@ -30,24 +30,20 @@ export default {
             state: true,
             fileList: [],
             dataForm: [],
-            dataHref: '',
             idList: [],
             isShowList: false,
-            type:'order'
+            type:'order',
+            apiurl:'www.'
         }
 
     },
     updated() {
-        this.$root.$on('search',data=>{
-            //console.log(delete data.account.birthDatecheck);
-            console.log(data)
-            this.dataHref = `/api/product/order/excelOut?conditions=${encodeURI(JSON.stringify(data.order))}`
-        });
+        
     },
     created() {
        
         this.$root.$on('output', data => {
-        
+
             this.dataForm = data;
             this.idList = [];
             if(data){
@@ -59,13 +55,7 @@ export default {
             
             let id = JSON.stringify(this.idList).replace(/\[|]/g, '');
             let ids = id.replace(/\"|"/g, "");
-            
-            if(ids){
-                this.dataHref = '/api/product/order/excelOut?ids=' + ids ;
-            }else{
-                this.dataHref = `/api/product/order/excelOut?conditions=${encodeURI("{}")}`;
-              
-            }
+            sessionStorage.setItem('LcOrderExcelId',ids)
             
             // let url = '/api/product/order/excelOut';
             //     this.$http({
@@ -97,6 +87,19 @@ export default {
         })
     },
     methods: {
+        dataHref(){
+           let ids = sessionStorage.getItem('LcOrderExcelId')
+            if(ids){
+                 location.href = 'http://www.jingrunjia.com.cn/api/product/order/excelOut?ids=' + ids ;
+            }else{
+                let datas = sessionStorage.getItem('LCorderExcelOut')
+                if(datas){
+                    location.href = `http://www.jingrunjia.com.cn/api/product/order/excelOut?conditions=${encodeURI(datas)}`
+                }else{
+                    location.href= `http://www.jingrunjia.com.cn/api/product/order/excelOut`;
+                }
+            }
+        },
         Refresh() {
             this.handleCurrentChange(1)
         },

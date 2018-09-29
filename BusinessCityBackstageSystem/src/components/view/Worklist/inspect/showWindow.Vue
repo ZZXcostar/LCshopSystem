@@ -88,7 +88,7 @@
         },
         methods: {
             getarticles(){
-                let url = '/api/public/articles/query';
+                let url = '/api/public/articles/queryMap';
                 this.$http({
                     url: url,
                     method: 'POST',

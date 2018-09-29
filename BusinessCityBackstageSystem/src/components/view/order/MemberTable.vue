@@ -127,8 +127,7 @@ export default {
             this.data.createTimeEnd=datas.order.daterange?Date.parse(datas.order.daterange[1]):null;
             this.getDate(1);
             console.log(this.data);
-            // console.log(this.data,datas);
-           
+           sessionStorage.setItem('LCorderExcelOut',JSON.stringify(this.data));
         });
     },
     methods:{
