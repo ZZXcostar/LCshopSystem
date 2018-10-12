@@ -1,5 +1,5 @@
 <template>
-	<el-dialog :title="title" :visible.sync="isDial">
+	<el-dialog id="addSub" :title="title" :visible.sync="isDial">
 	  <el-form :model="form">
 	    <el-form-item label="问题：" :label-width="formLabelWidth">
 	      <el-input v-model="form.title" placeholder="请输入问题" auto-complete="off" class="timu"></el-input>
@@ -218,24 +218,24 @@ export default {
 </script>
 
 <style>
-.imgBox {
+#addSub .imgBox {
   width: 100px;
   height: 100px;
   border: 1px solid #ddd;
 }
-.lineBline {
+#addSub .lineBline {
   border-bottom: 1px solid #ddd;
 }
-.memberdialog .el-dialog {
+#addSub .memberdialog .el-dialog {
   height: 60%;
 }
-.option {
+#addSub .option {
   width: 60%;
 }
-.timu {
+#addSub .timu {
   width: 90%;
 }
-.correct {
+#addSub .correct {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -243,15 +243,15 @@ export default {
   padding: 0px;
   margin-left: 20px;
 }
-.correct:hover {
+#addSub .correct:hover {
   background: #27a1f2;
   color: #ffffff;
 }
-.correct.on {
+#addSub .correct.on {
   background: #27a1f2 !important;
   color: #ffffff !important;
 }
-.el-form-item .span {
+#addSub .el-form-item .span {
   margin-left: 45px;
 }
 </style>

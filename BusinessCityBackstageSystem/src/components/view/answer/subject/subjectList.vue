@@ -1,5 +1,5 @@
 <template>
-	<div class="list">
+	<div class="sublist">
 		<el-row :gutter="20" >
 		  <el-col :span="8" v-for='(item,index) in jectList' :key="index">
 		  	<div class="grid-content bg-purple">
@@ -202,17 +202,17 @@
 </script>
 
 <style>
-.list {
+.sublist {
 	margin-top: 30px;
 	width: 100%;
 	padding-bottom: 50px;
 }
 
-.list .el-row {
+.sublist .el-row {
 	margin-bottom: 20px;
 }
 
-.list .el-col {
+.sublist .el-col {
 	border-radius: 4px;
 	margin-top: 10px;
 	font-size: 16px;
@@ -220,22 +220,22 @@
 	overflow: hidden;
 }
 
-.list .bg-purple {
+.sublist .bg-purple {
 	border: 1px solid #d9d9d9;
 	padding: 10px 18px;
 }
 
-.list .grid-content {
+.sublist .grid-content {
 	border-radius: 4px;
 	min-height: 36px;
 }
 
-.list .row-bg {
+.sublist .row-bg {
 	padding: 10px 0;
 	background-color: #f9fafc;
 }
 
-.jectb p{
+.sublist .jectb p{
 	height: 64px !important;
 }
 </style>

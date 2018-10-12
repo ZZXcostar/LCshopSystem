@@ -42,38 +42,38 @@
 	}
 </script>
 <style>
-	.lineHeight {
+	#answer .lineHeight {
         position: relative;
         top: 24px;
         color: #6f6f6f;
     }
 
-    table td:nth-child(3) {
+    #answer table td:nth-child(3) {
         padding-right: 10px;
     }
-    .icon-shuaxin1 {
+    #answer .icon-shuaxin1 {
         position: absolute;
         top: -4px;
     }
-    .icon-sousuo {
+    #answer .icon-sousuo {
         position: absolute;
         top: -9px;
         left: 359px;
     }
-    .add {
+    #answer .add {
         background: #27a1f2;
         border: 1px solid #27a1f2;
     }
-    #file-upload .el-upload{
+    #answer #file-upload .el-upload{
         width: 100% !important;
         text-align: left;
     }
-    .outPut a{
+    #answer .outPut a{
         display:inline-block;
         width: 100% !important;
         text-align: left;
     }
-    .shuaxin{
+    #answer .shuaxin{
     	border: 0px;
     	font-size: 40px;
         padding: 0;
@@ -83,20 +83,20 @@
         padding-top: 5px;
         height: 37px;
     }
-    .shuaxin:hover{
+    #answer .shuaxin:hover{
     	background: none;
     }
-    .add {
+    #answer .add {
         font-size: 16px;
         height: 37px;
         line-height: 0;
         margin-left: 15px;
     }
-    .topRight{
+    #answer .topRight{
     	float: right;
     	height: 60px;
     }
-    .sublistName{
+    #answer .sublistName{
     	height: 20px;
     	padding-left: 20px;
     	font-size: 20px;
@@ -104,7 +104,7 @@
     	border-left: 4px solid #253a4d;
     	margin-left: 33px;
     }
-    .topLeft{
+    #answer .topLeft{
     	padding-top: 25px;
     }
 </style>

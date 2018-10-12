@@ -96,7 +96,7 @@
 		padding-bottom: 150px;
 	}
 	
-	.block {
+	.recordlist .block {
 		float: right;
 		margin-top: 30px;
 	}
