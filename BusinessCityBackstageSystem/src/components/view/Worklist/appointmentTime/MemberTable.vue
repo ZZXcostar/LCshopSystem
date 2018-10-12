@@ -123,7 +123,7 @@ export default {
         getInfo(val){
             let statu='';
             if(val){
-                return statu = val.serviceState==1?"未服务":"服务完成"
+                return statu = val.serviceState==1?"未服务":val.serviceState==2?"服务中":"已完成"
             }
         },
         handleDelete(index, row,event) { //  删除某一种产品

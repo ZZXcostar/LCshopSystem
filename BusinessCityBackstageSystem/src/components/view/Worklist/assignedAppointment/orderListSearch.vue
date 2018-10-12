@@ -85,7 +85,7 @@
                                     </el-select>
                             </el-form-item>
                         </el-col>
-                        <!-- <el-col :span="8"> 
+                        <el-col :span="8"> 
                             <el-form-item class="visit-item" label="未接单:">
                                     <el-select v-model="ruleForm.acceptedValue" placeholder="请选择">
                                         <el-option
@@ -96,7 +96,7 @@
                                         </el-option>
                                     </el-select>
                             </el-form-item>
-                        </el-col> -->
+                        </el-col>
                         <el-col :span="5" style="margin-left:10%;">
                             <el-button type="primary" @click="searchTable">查询</el-button>
                         </el-col>
@@ -125,10 +125,10 @@ export default {
                 regions:[],
                 countyDistrict:'',
                 streetInfo:[],
-                acceptedValue:"",
+                acceptedValue:true,
                 acceptedArr:[
-                    {"boolean":true,"name":"未接单的工单"},
-                    {"boolean":true,"name":"未接单的订单"}
+                    {"boolean":true,"name":"未接的订单"},
+                    {"boolean":false,"name":"放弃的订单"}
                 ],
                 streetValue:''
             },
@@ -229,7 +229,7 @@ export default {
                         alert('登录超时！')
                     }else{
                         that.ruleForm.cityDisId = res.data.info;
-                         console.log(that.ruleForm.cityDisId)
+                      //   console.log(that.ruleForm.cityDisId)
                     }
                 })
             },
@@ -283,7 +283,7 @@ export default {
                 }
                 this.$root.$emit('orderListloading',true)
                 let that = this;
-                var url = '/api/product/appointment/findquery';
+                var url = '/api/product/appointment/findquery?accepted='+this.ruleForm.acceptedValue;
                 this.$http({
                     url: url,
                     method: 'post',

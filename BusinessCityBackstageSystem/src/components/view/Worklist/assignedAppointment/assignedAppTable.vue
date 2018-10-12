@@ -8,23 +8,28 @@
                                 </el-table-column> -->
         <el-table-column fixed width='100' label="姓名">
             <template slot-scope='scope'>
-                {{scope.row.orderDetail.name==null?'':scope.row.orderDetail.name}}
+                {{ scope.row.orderDetail?scope.row.orderDetail.name:'' }}
             </template>
         </el-table-column>
         <el-table-column width='120' label="电话">
             <template slot-scope='scope'>
-                {{scope.row.orderDetail.phone}}
+                {{ scope.row.orderDetail?scope.row.orderDetail.phone:'' }}
             </template>
         </el-table-column>
         <el-table-column width='120' label="商品名称">
             <template slot-scope='scope'>
-                {{scope.row.orderDetail.commodityName}}
+                {{ scope.row.orderDetail?scope.row.orderDetail.commodityName:'' }}
             </template>
         </el-table-column>
         <el-table-column width='120' label="规格">
             <template slot-scope='scope'>
-                {{scope.row.orderDetail.condition1Name==null?'':scope.row.orderDetail.condition1Name+'/'
-                +scope.row.orderDetail.condition2Name==null?'':scope.row.orderDetail.condition2Name}}
+                <span>
+                    {{scope.row.orderDetail?scope.row.orderDetail.condition1Name?scope.row.orderDetail.condition1Name +'/':'':''}}
+                </span>
+                <span>
+                    {{ scope.row.orderDetail?scope.row.orderDetail.condition2Name?scope.row.orderDetail.condition2Name:'':''}}
+                </span>
+               
             </template>
         </el-table-column>
         <el-table-column prop="number" width='120' label="数量">
@@ -42,7 +47,7 @@
             width='200'
             label="小区">
             <template slot-scope='scope'>
-                {{scope.row.orderDetail.communityName}}
+                 {{ scope.row.orderDetail?scope.row.orderDetail.communityName:'' }}
             </template>
         </el-table-column>
     </el-table>
@@ -64,6 +69,7 @@
             })
              this.$root.$on('dataListOrderList', (data) => {
                 this.datalist = data
+                console.log(this.datalist)
                 this.listLoading =  false;
             })
         },

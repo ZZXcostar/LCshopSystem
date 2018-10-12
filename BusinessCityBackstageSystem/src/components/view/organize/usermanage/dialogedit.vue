@@ -282,6 +282,9 @@ export default {
                 this.dataform.cityId = data_current.cityId;
                 this.dataform.disId = data_current.disId;
                 this.getrolelist(this.dataform.departmentId);
+                if(data_current.cityId){
+                    this.selectQY(data_current.cityId)
+                }
             }
             else{
                 this.cleardate();
