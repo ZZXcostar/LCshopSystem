@@ -1,5 +1,5 @@
 <template>
-	<el-dialog :title="title" width="494px" :visible.sync="isDial">
+	<el-dialog id="addCon" :title="title" width="494px" :visible.sync="isDial">
 		<el-form :model="form">
 			<el-form-item label="装修称号：" :label-width="formLabelWidth">
 				<el-input v-model="form.name" placeholder="请输入问题" auto-complete="off" class="contimu"></el-input>
@@ -251,33 +251,33 @@ export default {
 </script>
 
 <style>
-.imgBox {
+#addCon .imgBox {
   width: 100px;
   height: 100px;
   border: 1px solid #ddd;
 }
 
-.lineBline {
+#addCon .lineBline {
   border-bottom: 1px solid #ddd;
 }
 
-.on {
+#addCon .on {
   color: red !important;
 }
 
-.memberdialog .el-dialog {
+#addCon .memberdialog .el-dialog {
   height: 60%;
 }
 
-.option {
+#addCon .option {
   width: 60%;
 }
 
-.contimu {
+#addCon .contimu {
   width: 267px;
 }
 
-.correct {
+#addCon .correct {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -286,20 +286,20 @@ export default {
   margin-left: 20px;
 }
 
-.correct:hover {
+#addCon .correct:hover {
   background: #27a1f2;
   color: #ffffff;
 }
 
-.el-form-item .span {
+#addCon .el-form-item .span {
   margin-left: 45px;
 }
 
-.select {
+#addCon .select {
   width: 81px !important;
   margin-right: 8px;
 }
-.textare {
+#addCon .textare {
   width: 276px;
   text-align: center;
   resize: none !important;

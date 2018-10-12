@@ -146,27 +146,30 @@ export default {
 @import "../subject.less";
 </style>
 <style type="text/css">
-.clearfix:before,
-.clearfix:after {
+.conList .clearfix:before,
+.conList .clearfix:after {
   display: table;
   content: "";
 }
-.box-card {
+.conList {
+  margin-top: 50px;
+}
+.conList .box-card {
   padding: 0px;
   float: left;
   margin-right: 20px;
   margin-bottom: 20px;
 }
-.clearB {
+.conList .clearB {
   width: 100%;
   height: 100px;
 }
-.clearB p {
+.conList .clearB p {
   text-align: center;
   color: #ffffff;
   line-height: 27px;
 }
-.clearfix {
+.conList .clearfix {
   height: 105px;
   background: #3daaf3;
   text-align: center;
@@ -176,33 +179,33 @@ export default {
   padding: 0px;
   overflow: hidden;
 }
-.operation {
+.conList .operation {
   width: 100%;
   margin-top: 63px;
   color: #ffffff;
 }
-.operation .right {
+.conList .operation .right {
   float: right;
 }
-.operation .right span {
+.conList .operation .right span {
   padding: 0px 10px;
   cursor: pointer;
 }
-.operation .right span:nth-child(1) {
+.conList .operation .right span:nth-child(1) {
   border-right: 1px solid #ffffff;
 }
-.clearfix:after {
+.conList .clearfix:after {
   clear: both;
 }
-.clearfix img {
+.conList .clearfix img {
   display: block;
   margin: 0 auto;
 }
-.box-card {
+.conList .box-card {
   width: 340px;
   background: #3caaf3;
 }
-.conList {
+.conList .conList {
   margin-top: 40px;
   padding-bottom: 100px;
   overflow: hidden;

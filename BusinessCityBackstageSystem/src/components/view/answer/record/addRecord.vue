@@ -1,5 +1,5 @@
 <template>
-	<el-dialog :title="usinfo.phone" width="1200px" :visible.sync="isDial">
+	<el-dialog id="addRec" :title="usinfo.phone" width="1200px" :visible.sync="isDial">
 	    <span class="userInfo">装修称号：{{usinfo.title}}  | {{usinfo.date}}</span>	
 		<el-table :data="gridData">
 			<el-table-column type="index" width="50">
@@ -77,25 +77,25 @@
 </script>
 
 <style>
-	.imgBox {
+	#addRec .imgBox {
 		width: 100px;
 		height: 100px;
 		border: 1px solid #ddd;
 	}
-	.el-dialog{
+	#addRec .el-dialog{
 		margin-top: 80px !important;
 		
 	}
-	.el-dialog .userInfo{
+	#addRec .el-dialog .userInfo{
 		position: absolute;
 		top: 15px;
 		right: 60px;
 	}
-	.lineBline {
+	#addRec .lineBline {
 		border-bottom: 1px solid #ddd;
 	}
 	
-	.correct {
+	#addRec .correct {
 		border-radius: 50%;
 		width: 40px;
 		height: 40px;
@@ -104,7 +104,7 @@
 		margin-left: 20px;
 	}
 	
-	.correct:hover {
+	#addRec .correct:hover {
 		background: #27a1f2;
 		color: #FFFFFF;
 	}
