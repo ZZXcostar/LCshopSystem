@@ -110,7 +110,7 @@
                     estateId: null,
                     recommendedSourceId: null,
                     birthDate: null,
-                    conditionLabelIdLists:[]
+                    conditionLabelIdLists:null
                 }
             }
         },
@@ -137,6 +137,7 @@
                 // this.data.conditionLabelIdLists = datas.TagboxId?null:datas.TagboxId;
                 if(datas.TagboxId){
                     let tagArr = datas.TagboxId;
+                    this.data.conditionLabelIdLists = []
                     tagArr.forEach((e,i) =>{
                         this.data.conditionLabelIdLists.push(e)
                     })
@@ -331,7 +332,7 @@
                                 ////         alert('网络错误，不能访问');
                             })
                         this.getResidential(this.idBox)
-                        this.data.conditionLabelIdLists = [] //清空标签搜索数组
+                        this.data.conditionLabelIdLists = null //清空标签搜索数组
                         that.$root.$emit('pages1', response.data.info.pages)
                         that.$root.$emit('total1', response.data.info.total)
                     })
