@@ -15,7 +15,7 @@
                     
                 </el-col>
             </el-row>
-            <el-row>
+            <el-row v-if="iscreate">
                 <el-col :span="10" :offset='2'>
                     <el-form-item label="登录密码：" prop="adminPassword">
                         <el-input placeholder="请输入登录密码" v-model="dataform.adminPassword" auto-complete="off"></el-input>
@@ -250,7 +250,7 @@ export default {
     },
     created:function(){
         this.$root.$on('opendialogemploy',(data)=>{
-            // console.log(data);
+            console.log(data);
             this.customerCategory=[];
             this.depid=data.depid;
             this.getemployeetype();
