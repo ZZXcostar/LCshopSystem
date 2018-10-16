@@ -308,7 +308,21 @@
                         <el-checkbox v-model="form.account.birthDatecheck">今日生日</el-checkbox>
                     </el-col>
                 </el-row>
-                
+                <el-row>
+                    <el-col :span="5" >
+                        <el-form-item label="标签">
+                            <el-select v-model="tages" placeholder="请选择级别类型" @change='changes'>
+                                
+                                <el-option v-for=' (item,index) in dynamicTags' :key="index" :label='item.name' :value="item.id"></el-option>
+                            </el-select>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :offset="1" style='padding-bottom:10px;'>
+                        <el-tag :key="tag.name" v-for="(tag,index) in Tagbox" :style="{background: tag.color}" style='color:#fff;margin-right:10px;margin-bottom:10px; ' closable :disable-transitions="false" @close="handleCloses(index)">
+                            {{tag.name}}
+                        </el-tag>
+                    </el-col>
+                </el-row>
             </el-row>
             <!-- 订单 -->
             <el-row v-if='showorder'>
@@ -346,6 +360,13 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="5" >
+                        <el-form-item label="支付状态">
+                            <el-select v-model="form.order.payState" placeholder="请选择">
+                                <el-option v-for='(item,index) in orderPayState' :key='index' :label="item.name" :value="item.id"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
                     <el-col :span='8'>
                         <el-form-item label="时间段" :span='10' class='datepick'>
                             <el-date-picker
@@ -361,6 +382,15 @@
                     <el-col :span="5" >
                         <el-form-item label="流水号">
                             <el-input v-model="form.order.serialNumber"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="5" >
+                        <el-form-item label="预约状态">
+                            <el-select v-model="form.order.reservationState" placeholder="请选择">
+                                <el-option v-for='(item,index) in orderReservationState' :key='index' :label="item.name" :value="item.id"></el-option>
+                            </el-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -474,8 +504,13 @@
         props:['type'],
         data() {
             return {
+                dynamicTags: [],
+                Tagbox: [],
+                TagboxId: [],
+                tages:'',
                 valuelog:[],
                 form: {
+                    TagboxId: [],
                     log:{
                         userId:'',
                         content:'',
@@ -544,7 +579,9 @@
                         orderType:'',
                         serviceState:'',
                         daterange:'',
-                        serialNumber:''
+                        serialNumber:'',
+                        payState:'',
+                        reservationState:''
                     },
                     invoice:{
                         orderNumber:'',
@@ -682,6 +719,34 @@
                         name:'已完成'
                     }
                 ],
+                orderPayState:[
+                    {
+                        id:1,
+                        name:'已支付'
+                    },
+                    {
+                        id:2,
+                        name:'未支付'
+                    },
+                    {
+                        id:3,
+                        name:'已过期'
+                    },
+                    {
+                        id:4,
+                        name:'pos机'
+                    },
+                ],
+                orderReservationState:[
+                    {
+                        id:0,
+                        name:'未预约'
+                    },
+                    {
+                        id:1,
+                        name:'预约'
+                    }
+                ],
                 orderType:[
                     {
                         id:1,
@@ -811,6 +876,7 @@
                 case 'member':{
                     this.getMembertype();
                     this.getMemberlevel();
+                    this.getMemberLabel();
                     this.getCitys();
                     this.getEstate();
                     this.getRecommendedSource();
@@ -904,7 +970,9 @@
                         orderState:'',
                         orderType:'',
                         serviceState:'',
-                        daterange:''
+                        daterange:'',
+                        payState:'',
+                        reservationState:''
                     },
                     invoice:{
                         orderNumber:'',
@@ -923,6 +991,8 @@
                     }
                 };
                 this.valuelog=[];
+                this.Tagbox=[];
+                this.tages='';
                 this.$refs['form'].resetFields();
                 
             },
@@ -1219,6 +1289,84 @@
                 .catch(err=>{
                     console.log(err);
                 })
+            },
+            //获取会员标签
+            getMemberLabel() {
+                let url = '/api/customer/label/query/label';
+                this.$http({
+                        url: url,
+                        method: 'post',
+                        data: {}
+                    })
+                    .then(respone => {
+                        console.log(respone)
+                        for (let i = 0; i < respone.data.info.length; i++) {
+                            this.dynamicTags.push({
+                                name: respone.data.info[i].name,
+                                color: respone.data.info[i].color,
+                                id: respone.data.info[i].id
+                            })
+                        }
+                        console.log(this.dynamicTags)
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        //         alert('网络错误，不能访问');
+                    })
+            },
+            //选择会员标签
+            changes(value) {
+
+                let obj = {};
+                obj = this.dynamicTags.find((item) => {
+                    if (item.id === value) {
+                        if (value !== "" || value !== null) {
+                            this.TagboxId.push(item.id)
+                            this.form.TagboxId = this.TagboxId
+                        }
+                    }
+                    return item.id === value;
+                });
+                this.Tagbox.push(obj);
+                // this.ruleForm.tages = ""
+                //过滤重复项
+                var hash = {};
+                this.Tagbox = this.Tagbox.reduce(function(item, next) {
+                    hash[next.name] ? '' : hash[next.name] = true && item.push(next);
+                    return item
+                }, [])
+                //过滤id
+                var hashId = {};
+                this.TagboxId = this.TagboxId.reduce(function(item, next) {
+                    hashId[next.labelId] ? '' : hashId[next.labelId] = true && item.push(next);
+                    return item
+                }, []);
+            },
+            handleCloses(index) {
+                let list = [];
+                for (let i = 0; i < this.Tagbox.length; i++) {
+                    if (index != i) {
+                        list.push(this.Tagbox[i]);
+                        console.log(this.TagboxId)
+                        
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功！'
+                        });
+                    }
+                }
+                console.log(list)
+                this.TagboxId = []
+                this.form.TagboxId = []
+                list.forEach((e,i) =>{
+                    this.TagboxId.push(e.id)
+                    this.form.TagboxId =this.TagboxId
+                })
+
+                this.Tagbox = list;
+                console.log(this.Tagbox)
+                console.log(this.TagboxId)
+                console.log(this.form.TagboxId)
             },
             // 查询城市
             getCitys(){

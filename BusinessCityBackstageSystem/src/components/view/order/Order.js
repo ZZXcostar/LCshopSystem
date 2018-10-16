@@ -90,13 +90,13 @@ export default {
         dataHref(){
            let ids = sessionStorage.getItem('LcOrderExcelId')
             if(ids){
-                 location.href = 'http://qqq.shhongzhiyun.com/api/product/order/excelOut?ids=' + ids ;
+                 location.href = 'http://www.jingrunjia.com.cn/api/product/order/excelOut?ids=' + ids ;
             }else{
                 let datas = sessionStorage.getItem('LCorderExcelOut')
                 if(datas){
-                    location.href = `http://qqq.shhongzhiyun.com/api/product/order/excelOut?conditions=${encodeURI(datas)}`
+                    location.href = `http://www.jingrunjia.com.cn/api/product/order/excelOut?conditions=${encodeURI(datas)}`
                 }else{
-                    location.href= `http://qqq.shhongzhiyun.com/api/product/order/excelOut`;
+                    location.href= `http://www.jingrunjia.com.cn/api/product/order/excelOut`;
                 }
             }
         },

@@ -99,7 +99,7 @@
                     data:{}
                 })
                 .then(res => {
-                    this.getarticlesList = res.data.info.list;
+                    this.getarticlesList = res.data.info;
                 })
                 .catch(error => {
                     console.log(error);

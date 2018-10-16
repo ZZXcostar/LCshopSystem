@@ -97,6 +97,8 @@ export default {
                 orderState:null,
                 serviceState:null,
                 serialNumber:null,
+                payState:null,
+                appointmentState:null,
                 pageSize:10,
                 pageNum:1
             },
@@ -125,6 +127,8 @@ export default {
             this.data.serialNumber=datas.order.serialNumber===''?null:datas.order.serialNumber;
             this.data.createTimeStart=datas.order.daterange?Date.parse(datas.order.daterange[0]):null;
             this.data.createTimeEnd=datas.order.daterange?Date.parse(datas.order.daterange[1]):null;
+            this.data.payState = datas.order.payState===''?null:datas.order.payState;
+            this.data.appointmentState = datas.order.reservationState===''?null:datas.order.reservationState;
             this.getDate(1);
             console.log(this.data);
            sessionStorage.setItem('LCorderExcelOut',JSON.stringify(this.data));

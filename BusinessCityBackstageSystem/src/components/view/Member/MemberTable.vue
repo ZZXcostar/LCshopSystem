@@ -109,7 +109,8 @@
                     cityId: null,
                     estateId: null,
                     recommendedSourceId: null,
-                    birthDate: null
+                    birthDate: null,
+                    conditionLabelIdLists:[]
                 }
             }
         },
@@ -133,7 +134,17 @@
                 this.data.estateId = datas.account.estateId === '' ? null : datas.account.estateId;
                 this.data.recommendedSourceId = datas.account.recommendedSourceId === '' ? null : datas.account.recommendedSourceId;
                 this.data.birthDate = datas.account.birthDatecheck ? new Date() : null;
+                // this.data.conditionLabelIdLists = datas.TagboxId?null:datas.TagboxId;
+                if(datas.TagboxId){
+                    let tagArr = datas.TagboxId;
+                    tagArr.forEach((e,i) =>{
+                        this.data.conditionLabelIdLists.push(e)
+                    })
+                }
+                console.log(datas)
+                console.log(this.data.conditionLabelIdLists)
                 this.getDate(1);
+                
             })
             this.memberInfo = JSON.parse(sessionStorage.getItem("member"));
             this.findSource = JSON.parse(sessionStorage.getItem("findSource"));
@@ -320,7 +331,7 @@
                                 ////         alert('网络错误，不能访问');
                             })
                         this.getResidential(this.idBox)
-                        
+                        this.data.conditionLabelIdLists = [] //清空标签搜索数组
                         that.$root.$emit('pages1', response.data.info.pages)
                         that.$root.$emit('total1', response.data.info.total)
                     })
