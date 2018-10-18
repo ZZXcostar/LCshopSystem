@@ -316,16 +316,16 @@
                                         id:this.ruleForm.standardId,
                                         standardname:this.ruleForm.standardname,
                                         acceptance:this.ruleForm.acceptance,
-                                        parentId: this.ruleForm.entryitem,
+                                        parentId: this.ruleForm.pointId,
                                         entryArticlesLabels:NewTagbox,
                                         entryItems:[{
-                                            id: this.ruleForm.itemId,
-                                            parentId: this.ruleForm.thisId,
+                                            id: this.ruleForm.entryitem,
+                                            parentId: this.ruleForm.articles,
                                         }],
                                         entryPoints:[{
                                             id: this.ruleForm.pointId,
                                             point: this.ruleForm.point,
-                                            parentId: this.ruleForm.itemId,
+                                            parentId: this.ruleForm.entryitem,
                                         }]
                                     }
                                 })
@@ -349,7 +349,7 @@
             this.getMark();
             this.$root.$on('showWindowss', (data) => {
                 this.$nextTick(() => {
-                    if (data.type != 'no') {
+                    if (data.type == 'yes') {
                         this.dialogVisible = true;
                         this.ruleForm.textInfo = '编辑词条';
                         this.showStyle = true;
@@ -365,7 +365,7 @@
                         this.ruleForm.itemId = data.rowData.itemId;
                         this.ruleForm.acceptance = data.rowData.acceptance;
                         this.Tagbox = data.rowData.labelList;
-                    } else {
+                    } else if(data.type == 'no'){
                         this.showStyle = false;
                         this.dialogVisible = true;
                         this.ruleForm.textInfo = '新添词条';
@@ -373,6 +373,16 @@
                         this.ruleForm.mode = ''
                         this.ListAdminId = []
                         this.ListCustomerId = []
+                        this.ruleForm.articles = ''
+                        this.ruleForm.entryitem = ''
+                        this.ruleForm.point = '';
+                        this.ruleForm.standardname = '';
+                        this.ruleForm.standardId = '';
+                        this.ruleForm.pointId = '';
+                        this.ruleForm.itemId = '';
+                        this.ruleForm.acceptance = '';
+                        this.Tagbox = [];
+                        this.entryitemArr = [];
                     }
                 })
             });

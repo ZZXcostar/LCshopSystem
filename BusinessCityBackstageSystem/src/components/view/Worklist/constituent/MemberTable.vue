@@ -103,8 +103,8 @@ export default {
                     type: 'success',
                     message: '删除成功!',
                     duration:800,
-                    onClose:that.$http.post('/api/public/Standard/removeByIds',
-                        [row.standardId]
+                    onClose:that.$http.post('/api/public/entrypoint/removeByIds',
+                        [row.pointId]
                     ).then(res => {
                         console.log(res.data.msg);
                         that.getDate(1,{});

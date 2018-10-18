@@ -138,7 +138,7 @@
                     subData = {
                         "stageId":stageId,
                         'serviceTypeId':serviceTypeId,
-                        'typeId':typeId
+                        // 'typeId':typeId
                     }
                 }
                 this.loading=true;
