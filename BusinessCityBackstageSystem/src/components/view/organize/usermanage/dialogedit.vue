@@ -132,7 +132,7 @@
                 </el-col>
                 <el-col  :span="10">
                     <el-form-item label="区域：" prop='disId'>
-                        <el-select v-model="dataform.disId"  placeholder="请选择">
+                        <el-select v-model="disId"  placeholder="请选择" @change='disChange'>
                             <el-option
                             v-for="item in regions"
                             :key="item.id"
@@ -143,12 +143,18 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+                    <el-col :offset="1" style='padding-bottom:10px;'>
+                        <el-tag :key="tag.regionName" v-for="(tag,index) in Tagbox" :style="{background: tag.color}" style='color: #409EFF;margin-right:10px;margin-bottom:10px; ' closable :disable-transitions="false" @close="handleCloses(index)">
+                            {{tag.regionName}}
+                        </el-tag>
+                    </el-col>
                 </el-col>
+                
             </el-row>
             <el-row>
                 <el-col :span="10" :offset='2'>
                     <el-form-item label="服务类型："  prop='serTypeId'>
-                        <el-select v-model="dataform.serTypeId"  placeholder="请选择">
+                        <el-select v-model="serTypeId"  placeholder="请选择" @change="serChange">
                             <el-option
                             v-for="item in customerCategory"
                             :key="item.id"
@@ -158,6 +164,11 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+                    <el-col :offset="1" style='padding-bottom:10px;'>
+                        <el-tag :key="tag.serName" v-for="(tag,index) in serTagbox" :style="{background: tag.color}" style='color: #409EFF;margin-right:10px;margin-bottom:10px; ' closable :disable-transitions="false" @close="serHandleCloses(index)">
+                            {{tag.serName}}
+                        </el-tag>
+                    </el-col>
                 </el-col>
             </el-row>
         </el-form>
@@ -204,12 +215,18 @@ export default {
                 employeeTypeId:'',
                 employeeTypeName:'',
                 //以下新增字段
-                serTypeId:'',
+                serviceTypeIdList:[],
                 cityId:'',
-                disId:'',
+                districtIdList:[],
             },
+            disId:'',
             cities:[],
             regions:[],
+            Tagbox: [],
+            TagboxId: [],
+            serTypeId:'',
+            serTagbox: [],
+            serTagboxId: [],
             customerCategory:[],
             // deplist:[],
             rolelist:[],
@@ -278,9 +295,33 @@ export default {
                 this.dataform.employeeTypeName=data_current.employeeTypeName;
                 this.dataform.phone=data_current.phone;
                 this.dataform.accStatus=data_current.accStatus;
-                this.dataform.serTypeId = data_current.serTypeId;
+                this.serTypeId = '';
+                
+                if(data_current.serviceTypes){
+                    this.serTagbox = data_current.serviceTypes;
+                }else{
+                    this.serTagbox = []
+                }
+                
+                if(data_current.serTypeId){
+                     this.dataform.serviceTypeIdList = JSON.parse(data_current.serTypeId);
+                }else{
+                    this.dataform.serviceTypeIdList = []
+                }
+
                 this.dataform.cityId = data_current.cityId;
-                this.dataform.disId = data_current.disId;
+                this.disId = '';
+                if(data_current.districts){
+                     this.Tagbox = data_current.districts;
+                }else{
+                    this.Tagbox = []
+                }
+               
+                if(data_current.disId){
+                    this.dataform.districtIdList = JSON.parse(data_current.disId);
+                }else{
+                    this.dataform.districtIdList = []
+                }
                 this.getrolelist(this.dataform.departmentId);
                 if(data_current.cityId){
                     this.selectQY(data_current.cityId)
@@ -312,9 +353,15 @@ export default {
             this.dataform.groupName='';
             this.dataform.employeeTypeId='';
             this.dataform.employeeTypeName='';
-            this.dataform.serTypeId='';
+            this.serTypeId='';
+            this.dataform.serviceTypeIdList = [];
+            this.serTagboxId = [];
+            this.serTagbox = [];
             this.dataform.cityId='';
-            this.dataform.disId='';
+            this.disId='';
+            this.dataform.districtIdList = [];
+            this.TagboxId = [];
+            this.Tagbox = [];
         },
         selectdep(value){
             let obj = {};
@@ -433,6 +480,104 @@ export default {
                 that.regions = res.data.info;
             })
         },
+        //选择多个区域
+        disChange(value){
+            let obj = {};
+                obj = this.regions.find((item) => {
+                    if (item.id === value) {
+                        if (value !== "" || value !== null) {
+                            this.TagboxId.push(item.id)
+                            this.dataform.districtIdList = this.TagboxId
+                        }
+                    }
+                    return item.id === value;
+                });
+                this.Tagbox.push(obj);
+                //过滤重复项
+                var hash = {};
+                this.Tagbox = this.Tagbox.reduce(function(item, next) {
+                    hash[next.regionName] ? '' : hash[next.regionName] = true && item.push(next);
+                    return item
+                }, [])
+                //过滤id
+                // var hashId = {};
+                // this.TagboxId = this.TagboxId.reduce(function(item, next) {
+                //     hashId[next.id] ? '' : hashId[next.id] = true && item.push(next);
+                //     return item
+                // }, []);
+        },
+         handleCloses(index) {
+                let list = [];
+                for (let i = 0; i < this.Tagbox.length; i++) {
+                    if (index != i) {
+                        list.push(this.Tagbox[i]);
+                        console.log(this.TagboxId)
+                        
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功！'
+                        });
+                    }
+                }
+                console.log(list)
+                this.TagboxId = []
+                this.dataform.TagboxId = []
+                list.forEach((e,i) =>{
+                    this.TagboxId.push(e.id)
+                    this.dataform.districtIdList =this.TagboxId
+                })
+
+                this.Tagbox = list;
+                console.log(this.Tagbox)
+                console.log(this.TagboxId)
+                console.log(this.dataform.districtIdList)
+            },
+        //可选多个服务类型
+        serChange(value){
+            let obj = {};
+                obj = this.customerCategory.find((item) => {
+                    if (item.id === value) {
+                        if (value !== "" || value !== null) {
+                            this.serTagboxId.push(item.id)
+                            this.dataform.serviceTypeIdList = this.serTagboxId
+                        }
+                    }
+                    return item.id === value;
+                });
+                this.serTagbox.push(obj);
+                //过滤重复项
+                var hash = {};
+                this.serTagbox = this.serTagbox.reduce(function(item, next) {
+                    hash[next.serName] ? '' : hash[next.serName] = true && item.push(next);
+                    return item
+                }, [])
+        },
+        serHandleCloses(index) {
+                let list = [];
+                for (let i = 0; i < this.Tagbox.length; i++) {
+                    if (index != i) {
+                        list.push(this.serTagbox[i]);
+                        console.log(this.serTagboxId)
+                        
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功！'
+                        });
+                    }
+                }
+                console.log(list)
+                this.serTagboxId = []
+                this.dataform.serTagboxId = []
+                list.forEach((e,i) =>{
+                    this.serTagboxId.push(e.id)
+                    this.dataform.serviceTypeIdList =this.serTagboxId
+                })
+
+                this.serTagbox = list;
+                console.log(this.serTagbox)
+                console.log(this.serTagboxId)
+                console.log(this.dataform.serviceTypeIdList)
+            },
         datahandle(){
             let that=this;
             this.dataform.adminAge=this.age;

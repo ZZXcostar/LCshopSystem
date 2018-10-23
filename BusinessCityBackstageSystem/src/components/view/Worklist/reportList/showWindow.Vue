@@ -104,14 +104,14 @@
             searchStageInfo() {
                 //  查询阶段信息
                 let that = this;
-                this.$http.post('/api/public/articles/query',{})
+                this.$http.post('/api/public/articles/queryMap',{})
                     .then(res => {
                         console.log(res)
                         this.$root.$emit('load', false);
                         if (res.data.info == null) {
                             alert(res.data.error)
                         } else {
-                            that.stageInfo = res.data.info.list;
+                            that.stageInfo = res.data.info;
                             console.log(that.stageInfo)
                         }
                     }).catch(err => {
