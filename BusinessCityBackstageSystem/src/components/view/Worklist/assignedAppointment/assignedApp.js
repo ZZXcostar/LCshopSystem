@@ -131,14 +131,14 @@ export default {
                             data: datas,
                         }).then(respone => {
                             console.log(respone)
-                            if(respone.info){
+                            if(respone.data.info == 1){
                                 this.$message({
                                     type: 'info',
                                     message: '派单成功',
                                     duration:800
                                     });
                                     this.$root.$emit('updataAssigneTable',true)
-                            }else if(respone.info == false){
+                            }else if(respone.data.info == 0){
                                 this.$message({
                                     type: 'info',
                                     message: '请勿重复派单',
