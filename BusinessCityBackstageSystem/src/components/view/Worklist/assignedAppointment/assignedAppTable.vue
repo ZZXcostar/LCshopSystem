@@ -16,6 +16,11 @@
                 {{ scope.row.orderDetail?scope.row.orderDetail.phone:'' }}
             </template>
         </el-table-column>
+        <el-table-column width='180' label="订单号">
+            <template slot-scope='scope'>
+                {{ scope.row.orderDetail?scope.row.orderDetail.orderNumber:'' }}
+            </template>
+        </el-table-column>
         <el-table-column width='120' label="商品名称">
             <template slot-scope='scope'>
                 {{ scope.row.orderDetail?scope.row.orderDetail.commodityName:'' }}
@@ -34,13 +39,18 @@
         </el-table-column>
         <el-table-column prop="number" width='120' label="数量">
         </el-table-column>
-        <el-table-column prop='area' width='120' label="区域">
+        <el-table-column
+            width='120'
+            label="区域">
+            <template slot-scope='scope'>
+                {{scope.row.orderDetail?scope.row.orderDetail.area?scope.row.orderDetail.area.regionName:'':''}}
+            </template>
         </el-table-column>
         <el-table-column
             width='200'
             label="街道">
             <template slot-scope='scope'>
-                {{scope.row.street}}
+                {{scope.row.orderDetail?scope.row.orderDetail.street?scope.row.orderDetail.street.regionName:'':''}}
             </template>
         </el-table-column>
         <el-table-column

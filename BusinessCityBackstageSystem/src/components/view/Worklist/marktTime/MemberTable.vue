@@ -150,7 +150,7 @@
                                 </el-col>
                                 <el-col :span='24' style='position:relative;margin-bottom:10px;'>
                                     <el-form-item label="详细地址">
-                                        <el-input type="text" v-model="houseForm.address" placeholder="请输入详细地址" style='padding:0;' class="detailAddress"></el-input>
+                                        <el-input type="text" v-model="houseForm.streetMore" placeholder="请输入详细地址" style='padding:0;' class="detailAddress"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-col>
@@ -1215,8 +1215,8 @@
                     refundMoney: this.ruleForm.refundMoney - 0,
                     remark: this.ruleForm.remark,
                     //payTime: this.ruleForm.payTime,
-                    actualMoney: this.ruleForm.actualMoney - 0,
-                    paidMoney: this.ruleForm.paidMoney - 0,
+                    actualMoney: this.ruleForm.orderMoney - 0,
+                    paidMoney: this.ruleForm.actualMoney - 0,
                     sourceAccount: this.ruleForm.sourceAccount,
                     sourceId: this.ruleForm.sourceId,
                     hasContract: false,
