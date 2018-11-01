@@ -28,7 +28,7 @@
         >
         </el-table-column>
         <el-table-column
-        label="状态">
+        label="工单状态">
             <template slot-scope="scope">
             {{getInfo(scope.row.orderDetail)}}
             </template>
@@ -123,7 +123,7 @@ export default {
         getInfo(val){
             let statu='';
             if(val){
-                return statu = val.serviceState==1?"未服务":val.serviceState==2?"服务中":"已完成"
+                return statu = val.workList.isAccepted==0?"待接单":val.workList.isAccepted==1?"已接单":val.workList.isAccepted==2?"已拒单":val.workList.isAccepted==3?"已完成":val.workList.isAccepted==4?"放弃订单":'';
             }
         },
         handleDelete(index, row,event) { //  删除某一种产品
