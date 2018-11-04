@@ -67,6 +67,7 @@
         </div>
         <showWindows></showWindows>
         <MemberMark></MemberMark>
+        <merberCoupon></merberCoupon>
     </el-main>
 </template>
 <script>

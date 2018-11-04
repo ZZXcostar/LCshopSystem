@@ -16,6 +16,9 @@
                 <li class="other" @click='showMark'>
                     <i class='icon iconfont icon-guanlizhongxin'></i> 打标签
                 </li>
+                <li class="other" @click='showCoupon'>
+                    <i class='icon iconfont icon-guanlizhongxin'></i> 发优惠券
+                </li>
             </ul>
         </div>
     </div>
@@ -40,7 +43,7 @@ export default {
             var dom=document.getElementsByClassName('emendation')[0];
             let dom_edit=document.getElementById('modificationBtn');
             document.getElementsByClassName('nums')[0].innerHTML=data.num;
-            dom.style.left=data.show?'0px':'-600px';
+            dom.style.left=data.show?'0px':'-743px';
             dom_edit.style.cursor=data.editcan?'':'not-allowed';
             this.canedit=data.editcan;
         });
@@ -70,6 +73,9 @@ export default {
         showMark(){
             this.$root.$emit("MarkLable",[{list:this.dataInfo,isShow:this.isSHow}])
         },
+        showCoupon(){
+            this.$root.$emit("memberCoupon",[{list:this.dataInfo,isShow:this.isSHow}])
+        }
     },
     beforeDestroy(){
         this.$root.$off('showlttip')
@@ -126,7 +132,7 @@ export default {
 	margin-top: 26px;
 	position: absolute;
 	top: 0;
-	left:-600px;
+	left:-743px;
 	height: 32px;
     background: #fff;
     color: #555;

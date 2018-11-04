@@ -22,6 +22,7 @@ export default {
                 {'index':7,'icon':'el-icon-sold-out','isActive':false,'name':'决算服务'},
                 {'index':8,'icon':'el-icon-sold-out','isActive':false,'name':'全案服务'},
                 {'index':9,'icon':'el-icon-sold-out','isActive':false,'name':'经典服务'},
+                {'index':10,'icon':'el-icon-sold-out','isActive':false,'name':'单次水电验收'}
             ],
             urlList:[
                 {id:1,url:'/api/public/EntryReportTemplate/queryByIds',des:'装修规划',name:'stage'},
@@ -32,7 +33,8 @@ export default {
                 {id:6,url:'/api/public/EntryReportTemplate/queryByIds',des:'单次巡检',name:'stage'},
                 {id:7,url:'/api/public/EntryReportTemplate/queryByIds',des:'决算服务',name:'stage'},
                 {id:8,url:'/api/public/EntryReportTemplate/queryByIds',des:'全案服务',name:'stage'},
-                {id:9,url:'/api/public/EntryReportTemplate/queryByIds',des:'经典服务',name:'stage'},
+                {id:9,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'经典服务',name:'stage'},
+                {id:10,url:'/api/public/EntryReportTemplate/queryByIds',des:'单次水电验收',name:'stage'}
             ],
             datalist:[]
         }

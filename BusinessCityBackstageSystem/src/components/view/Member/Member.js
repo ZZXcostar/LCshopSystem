@@ -6,6 +6,7 @@ import searchBox from '@/components/common/search/searchBox.vue'
 import search from '../../common/search/search.vue'
 import showWindows from './showWindow.vue'
 import MemberMark from './MemberMark.vue'
+import merberCoupon from './merberCoupon.vue'
 import qs from 'qs'
 import moment from "moment"
 
@@ -294,7 +295,8 @@ export default {
         Datatable,
         showWindows,
         searchBox,
-        MemberMark
+        MemberMark,
+        merberCoupon
     },
     beforeDestroy() {
         this.$root.$off('loading');

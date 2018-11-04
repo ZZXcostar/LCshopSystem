@@ -274,25 +274,30 @@ export default {
             this.reportTable = data.datalist
             console.log(data.index)
             this.zdbindex = data.index
-            if(data.index == 9){
+            if(data.index == 10){
+                this.reportForm.reportTitle = "单次水电验收"
+                 this.serviceTypeId = 62
+                this.typeId = 0
+            }
+            else if(data.index == 9){
                 this.reportForm.reportTitle = "经典服务"
                  this.serviceTypeId = 60
-                this.typeId = null
+                this.typeId = 0
             }
             else if(data.index == 8){
                 this.reportForm.reportTitle = "全案服务"
                  this.serviceTypeId = 59
-                this.typeId = null
+                this.typeId = 0
             }
             else if(data.index == 7){
                 this.reportForm.reportTitle = "决算服务"
                  this.serviceTypeId = 58
-                this.typeId = null
+                this.typeId = 0
             }
             else if(data.index == 6){
                 this.reportForm.reportTitle = "单次巡检"
                  this.serviceTypeId = 57
-                this.typeId = null
+                this.typeId = 0
             }
             else if(data.index == 5){
                 this.reportForm.reportTitle = "全程监理"
@@ -302,12 +307,12 @@ export default {
            else if(data.index == 4){
                 this.reportForm.reportTitle = "精装修验收"
                  this.serviceTypeId = 55
-                this.typeId = null
+                this.typeId = 0
             }
             else if(data.index == 3){
                 this.reportForm.reportTitle = "毛坯房验收"
                  this.serviceTypeId = 54
-                 this.typeId = null
+                 this.typeId = 0
             }
             // else if(data.index == 2){
             //     this.reportForm.reportTitle = "陪签服务"
@@ -317,7 +322,7 @@ export default {
             else if(data.index == 1){
                 this.reportForm.reportTitle = "装修规划"
                 this.serviceTypeId = 42
-                 this.typeId = null
+                 this.typeId = 0
             }
         })
         // 42  装修规划
