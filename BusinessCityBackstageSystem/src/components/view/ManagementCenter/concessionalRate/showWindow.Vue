@@ -41,6 +41,16 @@
                         <el-input v-model="ruleForm.couponName"></el-input>
                     </el-form-item>
                 </el-col>
+                <el-col :span='6'>
+                    <el-form-item label="最早期限" prop="minGrantTime">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.minGrantTime" style="width: 100%;"></el-date-picker>
+                    </el-form-item>
+                </el-col>
+                <el-col :span='6'>
+                    <el-form-item label="最晚期限" prop='maxGrantTime'>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.maxGrantTime" style="width: 100%;"></el-date-picker>
+                    </el-form-item>
+                </el-col>
                 <el-col :span='12'>
                     <el-form-item label="优惠劵说明" prop='explains'>
                         <el-input v-model="ruleForm.explains"></el-input>
@@ -260,6 +270,18 @@
                     }
                 }, 1000)
             }
+            var checkAges = (rule, value, callback) => {
+                if (!value) {
+                    return callback(new Error('最晚期限不能为空'))
+                }
+                setTimeout(() => {
+                    if (value < this.ruleForm.minGrantTime) {
+                        callback(new Error('最晚期限必须大于最早期限'))
+                    } else {
+                        callback()
+                    }
+                }, 1000)
+            }
             return {
                 dialogVisible: false,
                 isShow: true,
@@ -275,6 +297,8 @@
                     explains: '',
                     starTime: '', //开始时间
                     endTime: '', //结束时间
+                    minGrantTime:'',//最早期限
+                    maxGrantTime:'',//最晚期限
                     couponStatus: '', //优惠券状态
                     receiveCapped: "", //账户最多领取的个数
                     couponMoney: '', //优惠券金额
@@ -334,6 +358,11 @@
                         message: '请选择开日期',
                         trigger: 'change'
                     }],
+                    minGrantTime:[{
+                        required: false,
+                        message:'请选择最早期限',
+                        trigger:'change'
+                    }],
                     couponType: [{
                         required: true,
                         message: '请选择类型',
@@ -344,6 +373,11 @@
                         message: '结束日期小于开始日期',
                         trigger: 'change'
                     }],
+                    maxGrantTime:[{
+                        validator:checkAges,
+                        message:'最晚期限小于最早期限',
+                        trigger:'change'
+                    }]
                 }
             };
         },
@@ -565,6 +599,8 @@
                         id: this.ruleForm.ids,
                         starTime: this.goTime(this.ruleForm.starTime), //开始时间
                         endTime: this.goTime(this.ruleForm.endTime), //结束时间
+                        minGrantTime: this.goTime(this.ruleForm.minGrantTime),//最早期限
+                        maxGrantTime: this.goTime(this.ruleForm.maxGrantTime),//最晚期限
                         couponAmount: this.ruleForm.couponAmount, //数量
                         couponType: this.ruleForm.couponType, //优惠券类型
                         couponStatus: this.ruleForm.couponStatus, //状态
@@ -601,6 +637,8 @@
                         id: this.ruleForm.ids,
                         starTime: this.goTime(this.ruleForm.starTime), //开始时间
                         endTime: this.goTime(this.ruleForm.endTime), //结束时间
+                        minGrantTime:this.goTime(this.ruleForm.minGrantTime),//最早期限
+                        maxGrantTime:this.goTime(this.ruleForm.maxGrantTime),//最晚期限
                         couponAmount: this.ruleForm.couponAmount, //数量
                         couponType: this.ruleForm.couponType, //优惠券类型
                         couponStatus: this.ruleForm.couponStatus, //状态
@@ -633,6 +671,8 @@
                         id: this.ruleForm.ids,
                         starTime: this.goTime(this.ruleForm.starTime), //开始时间
                         endTime: this.goTime(this.ruleForm.endTime), //结束时间
+                        minGrantTime:this.goTime(this.ruleForm.minGrantTime),//最早期限
+                        maxGrantTime:this.goTime(this.ruleForm.maxGrantTime),//最晚期限
                         couponAmount: this.ruleForm.couponAmount, //数量
                         couponType: this.ruleForm.couponType, //优惠券类型
                         couponStatus: this.ruleForm.couponStatus, //状态
@@ -854,6 +894,8 @@
                             this.companyId = data.companyId;
                             this.ruleForm.starTime = data.starTime; //开始时间
                             this.ruleForm.endTime = data.endTime; //结束时间
+                            this.ruleForm.minGrantTime = data.minGrantTime;//最早期限
+                            this.ruleForm.maxGrantTime = data.maxGrantTime;//最晚期限
                             this.ruleForm.couponAmount = data.couponAmount; //数量
                             this.ruleForm.couponType = data.couponType; //优惠券类型
                             this.ruleForm.receiveCapped = data.receiveCapped; //最多领取
