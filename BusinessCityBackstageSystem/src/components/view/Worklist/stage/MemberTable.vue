@@ -22,6 +22,11 @@
         <!-- <el-table-column class='borderRight' fixed prop="id" label="ID" width='360' height='100'>
         </el-table-column> -->
         <el-table-column
+        prop="number"
+        label="排序"
+        >
+        </el-table-column>
+        <el-table-column
         prop="stagename"
         label="阶段名称"
         >

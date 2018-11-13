@@ -9,8 +9,13 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span='24'>
-                        <el-form-item label="描述">
+                        <el-form-item label="描述" prop="mode">
                             <el-input v-model="ruleForm.mode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span='24'>
+                        <el-form-item label="排序" prop="number">
+                            <el-input v-model="ruleForm.number"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -51,6 +56,17 @@
     import qs from 'qs'
     export default {
         data() {
+            var numberReg = /^(\d+)$/
+            var validateNumber = (rule, value, callback) => {
+                    if (value) {
+                        if (!numberReg.test(value)) {
+                         callback(new Error('请输入正整数'))
+                        } else {
+                         callback()
+                        }
+                    }
+            
+            }
             return {
                 selectAll: false,
                 showStyle: false,
@@ -65,6 +81,7 @@
                     textInfo: '新增阶段',
                     name: "",
                     mode: '',
+                    number: 0,
                     reading: "0",
                     thisId: '',
                     isDisplay: '0'
@@ -80,6 +97,10 @@
                         message: '描述',
                         trigger: 'blur'
                     }, ],
+                    number: [{
+                        validator:validateNumber,
+                        trigger: 'blur'
+                    },],
                 },
             };
         },
@@ -101,7 +122,8 @@
             closeDialog(done) {
                 this.dialogVisible = false;
                 this.$refs['ruleForm'].resetFields();
-                this.ruleForm.name = ''
+                this.ruleForm.name = '';
+                this.ruleForm.number = 0;
             },
             // checkName() {
             //     // if (this.ruleForm.name == '') {
@@ -130,6 +152,7 @@
                                     data: {
                                         "stagename": this.ruleForm.name,
                                         "remark": this.ruleForm.mode,
+                                        "number": this.ruleForm.number,
                                     }
                                 })
                                 .then(res => {
@@ -160,6 +183,7 @@
                                         'id': this.ruleForm.thisId,
                                          "stagename": this.ruleForm.name,
                                         "remark": this.ruleForm.mode,
+                                        "number": this.ruleForm.number,
                                     }
                                 })
                                 .then(response => {
@@ -209,17 +233,19 @@
                         this.dialogVisible = true;
                         this.ruleForm.textInfo = '编辑阶段';
                         this.showStyle = true;
-                        this.ruleForm.thisId = data.rowData.id
-                        this.ruleForm.mode = data.rowData.remark
-                        this.ruleForm.name = data.rowData.stagename
+                        this.ruleForm.thisId = data.rowData.id;
+                        this.ruleForm.mode = data.rowData.remark;
+                        this.ruleForm.name = data.rowData.stagename;
+                        this.ruleForm.number = data.rowData.number;
                     } else {
                         this.showStyle = false;
                         this.dialogVisible = true;
                         this.ruleForm.textInfo = '新添阶段';
-                        this.ruleForm.name = ''
-                        this.ruleForm.mode = ''
-                        this.ListAdminId = []
-                        this.ListCustomerId = []
+                        this.ruleForm.name = '';
+                        this.ruleForm.mode = '';
+                        this.ruleForm.number = 0;
+                        this.ListAdminId = [];
+                        this.ListCustomerId = [];
                     }
                 })
             });
