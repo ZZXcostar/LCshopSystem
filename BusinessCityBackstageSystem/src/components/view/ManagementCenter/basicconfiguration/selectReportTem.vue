@@ -25,7 +25,8 @@
                 style="width: 100%;overflow-y: scroll;" 
                 class='table-products' 
                 @select="selectChange"
-                v-loading='loading'>
+                v-loading='loading'
+                :stripe='true'>
                     <el-table-column
                     fixed
                     type="selection" 
@@ -112,12 +113,14 @@
                 {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'精装修验收',name:'stage'},
                 {id:5,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'全程监理',name:'stage'},
                 {id:6,url:'/api/public/EntryReportTemplate/queryByIds',des:'单次巡检',name:'stage'},
-                {id:7,url:'/api/public/EntryReportTemplate/queryByIds',des:'决算服务',name:'stage'},
+                {id:7,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'决算服务',name:'stage'},
                 {id:8,url:'/api/public/EntryReportTemplate/queryByIds',des:'全案服务',name:'stage'},
                 {id:9,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'经典服务',name:'stage'},
                 {id:10,url:'/api/public/EntryReportTemplate/queryByIds',des:'单次水电验收',name:'stage'}
             ],
-            zbdindex:''
+            zbdindex:'',
+            entryTemplateId:null,
+            reportId:''
         };
     },
     methods: {
@@ -154,6 +157,13 @@
                         that.pages=data.pageSize;
                         that.total=data.total;
                         that.currentPage=data.pageNum;
+                        that.$nextTick(function () {
+                             that.listgoods.forEach((e,i) => {
+                                            if(e.id == that.entryTemplateId){
+                                                that.$refs.goodtable.toggleRowSelection(e);
+                                            }
+                                });
+                        })
                     }
                     else{
                         that.$message(response.data.msg);
@@ -185,13 +195,19 @@
                     this.tipcolor.color = "#ff3b30";
                     this.input = ''
                 }else if(val.length == 1){
-                    this.disabled = false;
-                    this.selectedDiv = true
-                    this.selectedTitle = val[0].name
-                    this.input = val[0].id
-                    console.log(val[0].name)
-                    console.log(val[0].id)
-                    this.tipcolor.color = "#50c380";
+                    if(this.entryTemplateId == null){
+                        this.disabled = false;
+                        this.selectedDiv = true
+                        this.selectedTitle = val[0].name
+                        this.input = val[0].id
+                        console.log(val[0].name)
+                        console.log(val[0].id)
+                        this.tipcolor.color = "#50c380";
+                    }else{
+                        alert('请先取消选择过的报告模板')
+                        this.input = ''
+                    }
+                    
                 }else{
                     this.input = ''
                     this.selectedDiv = false
@@ -205,36 +221,70 @@
                     });
                     return false
                 }else{
-                    //保存报告模板
-                    let that = this;
-                    let sureData = {
-                        "id": this.reportId,
-                        "entryTemplateId": this.input
-                    }
-                    this.$http.post('/api/public/EntryReportTemplate/update',sureData)
-                    .then(function (response) {
-                        console.log(response);
-                        if(response.data.status == 200){
-                             that.$message({
-                                type: 'info',
-                                message: '添加成功'
-                            });
-                            that.selectedDiv = false;
-                            that.selectedTitle = '';
-                            that.dialogVisibless = false;
-                             that.$root.$emit('saveReportTemplateInfos', {
-                                "indexs":that.zbdindex,"url":that.urlList[that.zbdindex-1].url,'zbdid':that.urlList[that.zbdindex-1].id
-                            })
-                            
-                        }else{
-                            that.$message(response.data.msg);
-                            that.loading=false;
+                    if(this.entryTemplateId == null){
+                        //保存报告模板
+                        let that = this;
+                        let sureData = {
+                            "id": this.reportId,
+                            "entryTemplateId": this.input
                         }
-                    })
-                    .catch(function(response){
-                        that.$message(response);
-                        that.loading=false;
-                    });
+                        this.$http.post('/api/public/EntryReportTemplate/update',sureData)
+                        .then(function (response) {
+                            console.log(response);
+                            if(response.data.status == 200){
+                                that.$message({
+                                    type: 'info',
+                                    message: '添加成功'
+                                });
+                                that.selectedDiv = false;
+                                that.selectedTitle = '';
+                                that.dialogVisibless = false;
+                                that.$root.$emit('saveReportTemplateInfos', {
+                                    "indexs":that.zbdindex,"url":that.urlList[that.zbdindex-1].url,'zbdid':that.urlList[that.zbdindex-1].id
+                                })
+                                
+                            }else{
+                                that.$message(response.data.msg);
+                                that.loading=false;
+                            }
+                        })
+                        .catch(function(response){
+                            that.$message(response);
+                            that.loading=false;
+                        });
+                    }else{
+                        //保存报告模板
+                        let that = this;
+                        let sureData = {
+                            "id": this.reportId,
+                            "entryTemplateId": this.entryTemplateId
+                        }
+                        this.$http.post('/api/public/EntryReportTemplate/update',sureData)
+                        .then(function (response) {
+                            console.log(response);
+                            if(response.data.status == 200){
+                                that.$message({
+                                    type: 'info',
+                                    message: '添加成功'
+                                });
+                                that.selectedDiv = false;
+                                that.selectedTitle = '';
+                                that.dialogVisibless = false;
+                                that.$root.$emit('saveReportTemplateInfos', {
+                                    "indexs":that.zbdindex,"url":that.urlList[that.zbdindex-1].url,'zbdid':that.urlList[that.zbdindex-1].id
+                                })
+                                
+                            }else{
+                                that.$message(response.data.msg);
+                                that.loading=false;
+                            }
+                        })
+                        .catch(function(response){
+                            that.$message(response);
+                            that.loading=false;
+                        });
+                    }
+                    
                 }
           },
     },
@@ -245,6 +295,7 @@
                 this.dialogVisibless = data.isShow
                 this.reportIndex = data.indexs
                 this.reportId = data.datas.id
+                this.entryTemplateId = data.datas.entryTemplateId
                 this.zbdindex = data.zbdindex
                 let datas = {
                     "stageId":data.datas.stageId,

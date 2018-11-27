@@ -31,7 +31,7 @@ export default {
                 {id:4,url:'/api/public/EntryReportTemplate/queryByIds',des:'精装修验收',name:'stage'},
                 {id:5,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'全程监理',name:'stage'},
                 {id:6,url:'/api/public/EntryReportTemplate/queryByIds',des:'单次巡检',name:'stage'},
-                {id:7,url:'/api/public/EntryReportTemplate/queryByIds',des:'决算服务',name:'stage'},
+                {id:7,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'决算服务',name:'stage'},
                 {id:8,url:'/api/public/EntryReportTemplate/queryByIds',des:'全案服务',name:'stage'},
                 {id:9,url:'/api/public/EntryReportTemplate/queryMapByIds',des:'经典服务',name:'stage'},
                 {id:10,url:'/api/public/EntryReportTemplate/queryByIds',des:'单次水电验收',name:'stage'}
@@ -68,6 +68,12 @@ export default {
         },
         findInfo(index,i,id){
             this.$root.$emit('loadInfo',true);
+            if(this.urlList[index].des == "全程监理" ||  this.urlList[index].des == "经典服务"){
+                this.$root.$emit('updataOrder',true);
+                this.$root.$emit('updataOrderData',{"index":id,"datas":id,"url":i})
+            }else{
+                this.$root.$emit('updataOrder',false);
+            }
             this.getDate(index,i,id);
         },
         getDate(index,i,id) {

@@ -18,6 +18,7 @@
                     <div >
                         <h5>配置内容</h5>
                         <el-button type="primary" class="add-btn" @click="addContent" v-show="isADDShow">新增</el-button>
+                        <el-button type="primary" class="add-btn" @click="updataOrderBtn" v-show="updataOrder">更新顺序</el-button>
                         <div class="basic-content">
                             <el-table
                                 v-loading="loadInfo"
@@ -138,6 +139,7 @@ export default {
             isLoading:true,
             isBorder:true,
             loadInfo:true,
+            updataOrder:false,
             levelShow:false,
             levelShows:false,
             userInfo:false,
@@ -168,6 +170,7 @@ export default {
             number:0,
             tableData:[],
             reportTable:[],
+            updataOrderData:null,
             ruleForm:{
                 id:'',title:'新增品牌',
                 nameDes:'品牌名称',name:'',
@@ -334,10 +337,15 @@ export default {
         // 58  决算服务
         // 59  全案服务
         // 60  经典服务
-
+        this.$root.$on('updataOrderData',data => {
+            this.updataOrderData = data;
+        })
         this.$root.$on('loadInfo',data => {
             this.loadInfo = data;
         });
+        this.$root.$on('updataOrder',data =>{
+            this.updataOrder = data
+        })
         this.$root.$on('canedit',data=>{
             if(data){
                 this.editenable=true;
@@ -534,6 +542,7 @@ export default {
                 serviceTypeId:this.serviceTypeId,
                 typeId:this.typeId
             }
+            console.log(row)
             this.$root.$emit('opendialogSelectReport',{"datas":row,"indexs":index,"isShow":true,"needId":id,'zbdindex':this.zdbindex})
         },
         addContent(){
@@ -568,6 +577,47 @@ export default {
                     this.levelShow = false;
                 }
             }
+            
+        },
+        updataOrderBtn(){
+         let objs = this.updataOrderData;
+         let datas = objs.datas;
+         let indexs = objs.index;
+         let urls = objs.url;
+         let dataId = [];
+         dataId.push(datas)
+        if(indexs == 9){
+            this.reportForm.reportTitle = "经典服务"
+                this.serviceTypeId = 60
+            this.typeId = 0
+        }
+        else if(indexs == 5){
+            this.reportForm.reportTitle = "全程监理"
+                this.serviceTypeId = 56
+            this.typeId = 0
+        }
+         let that = this;
+         this.$http.post('/api/public/EntryReportTemplate/update', {"entryReportTemplateId":datas})
+                .then(function(response) {
+                    console.log(response)
+                    if(response.data.status == 200){
+                        that.$http.post(urls, dataId)
+                        .then(function(response) {
+                            console.log(response);
+                            that.reportTable=(response.data.info);
+                            console.log(that.reportTable)
+                            //获取数据给列表
+                            that.loadInfo = false
+                        })
+                        .catch(function(error) {
+                                console.log(error);
+                        });
+                    }
+                })
+                .catch(function(error) {
+                        console.log(error);
+                });
+            
             
         },
         submitForm(){
@@ -690,6 +740,7 @@ export default {
     beforeDestroy(){
         this.$root.$off('searchInfo');
         this.$root.$off('loadInfo');
+        this.$root.$off('updataOrder');
         this.$root.$off('showLevel');
     }
 }
