@@ -72,11 +72,10 @@
                 :page-size="pages"
                 layout="prev, pager, next, jumper"
                 :total="total"
-                style="text-align: right;
-                position: absolute;
-                bottom: 2%;
-                right: 2%;
-                top: 88%;">
+                style="    text-align: right;
+                    position: absolute;
+                    bottom: 64px;
+                    right: 2%;">
                 </el-pagination>
                 <div class="zbd-selectedTip" v-show="selectedDiv">已选择：<span :style="tipcolor">{{ selectedTitle }}</span></div>
             <span slot="footer" class="dialog-footer">
@@ -120,7 +119,10 @@
             ],
             zbdindex:'',
             entryTemplateId:null,
-            reportId:''
+            reportId:'',
+            stageId:'',
+            serviceTypeId:'',
+            typeId:'',
         };
     },
     methods: {
@@ -179,20 +181,21 @@
             },
             handleCurrentChange(currentPage){
                 let datas = {
-                    "stageId":data.datas.stageId,
-                    "serviceTypeId":data.needId.serviceTypeId,
-                    "typeId":data.needId.typeId,
+                    "stageId":this.stageId,
+                    "serviceTypeId":this.serviceTypeId,
+                    "typeId":this.typeId,
                     "pageindex":currentPage
                 }
                 this.getDatalist(datas);
             },
-            selectChange(val){
+            selectChange(val, row){
                 console.log(val)
+                console.log(row)
                 if(val.length > 1){
-                    this.disabled = true;
-                    this.selectedDiv = true;
-                    this.selectedTitle = '请选择一个模板';
-                    this.tipcolor.color = "#ff3b30";
+                    this.$message({
+                        type: 'info',
+                        message: '请选择一个模板'
+                    });
                     this.input = ''
                 }else if(val.length == 1){
                     if(this.entryTemplateId == null){
@@ -204,11 +207,18 @@
                         console.log(val[0].id)
                         this.tipcolor.color = "#50c380";
                     }else{
-                        alert('请先取消选择过的报告模板')
-                        this.input = ''
+                        this.$message({
+                                type: 'info',
+                                message: '请先取消选择过的报告模板'
+                            });
+                            this.input = ''
+                        
                     }
                     
-                }else{
+                }else if(val.length == 0){
+                    if(this.entryTemplateId == row.id ){
+                            this.entryTemplateId = null
+                        }
                     this.input = ''
                     this.selectedDiv = false
                 }
@@ -297,6 +307,9 @@
                 this.reportId = data.datas.id
                 this.entryTemplateId = data.datas.entryTemplateId
                 this.zbdindex = data.zbdindex
+                this.stageId = data.datas.stageId
+                this.serviceTypeId = data.needId.serviceTypeId
+                this.typeId = data.needId.typeId
                 let datas = {
                     "stageId":data.datas.stageId,
                     "serviceTypeId":data.needId.serviceTypeId,
@@ -375,7 +388,7 @@
     } */
     .zbd-selectedTip{
         position: absolute;
-            top: 20%;
+            top: 62px;
         right: 87%;
         width: 285px;
         height: 26px;
